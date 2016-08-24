@@ -19,6 +19,7 @@
 		94268F3B1D6D94F50016ABC5 /* EmptyCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94268F391D6D94F50016ABC5 /* EmptyCollectionViewCell.swift */; };
 		94268F3C1D6D94F50016ABC5 /* EmptyCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 94268F3A1D6D94F50016ABC5 /* EmptyCollectionViewCell.xib */; };
 		94268F3F1D6D9C8E0016ABC5 /* AddressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94268F3E1D6D9C8E0016ABC5 /* AddressViewController.swift */; };
+		94268F411D6DE8C70016ABC5 /* DataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94268F401D6DE8C70016ABC5 /* DataModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +37,7 @@
 		94268F391D6D94F50016ABC5 /* EmptyCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmptyCollectionViewCell.swift; sourceTree = "<group>"; };
 		94268F3A1D6D94F50016ABC5 /* EmptyCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EmptyCollectionViewCell.xib; sourceTree = "<group>"; };
 		94268F3E1D6D9C8E0016ABC5 /* AddressViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddressViewController.swift; sourceTree = "<group>"; };
+		94268F401D6DE8C70016ABC5 /* DataModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,6 +78,7 @@
 				94268F261D6CB1840016ABC5 /* LaunchScreen.storyboard */,
 				94268F291D6CB1840016ABC5 /* Info.plist */,
 				94268F3E1D6D9C8E0016ABC5 /* AddressViewController.swift */,
+				94268F401D6DE8C70016ABC5 /* DataModel.swift */,
 			);
 			path = MapViewAddressList;
 			sourceTree = "<group>";
@@ -172,6 +175,7 @@
 				94268F3B1D6D94F50016ABC5 /* EmptyCollectionViewCell.swift in Sources */,
 				94268F341D6D93EE0016ABC5 /* AddressCollectionViewLayout.swift in Sources */,
 				94268F1E1D6CB1840016ABC5 /* AppDelegate.swift in Sources */,
+				94268F411D6DE8C70016ABC5 /* DataModel.swift in Sources */,
 				94268F3F1D6D9C8E0016ABC5 /* AddressViewController.swift in Sources */,
 				94268F301D6D90EF0016ABC5 /* AddressCollectionViewController.swift in Sources */,
 			);
