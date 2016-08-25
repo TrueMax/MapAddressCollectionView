@@ -7,47 +7,37 @@
 //
 
 import UIKit
+import MapKit
 
 class AddressViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UIGestureRecognizerDelegate {
+    
+    @IBOutlet weak var addressMapView: MKMapView!
+    @IBOutlet weak var containerView: UIView!
+    @IBOutlet weak var addressCollectionView: UICollectionView!
     
     var selectedFullCell: FullCollectionViewCell?
     var selectedEmptyCell: EmptyCollectionViewCell?
     
-    let recognizerFull = UITapGestureRecognizer() // нажатие для центрирования карты по адресу или поиска нового адреса
+    
+    // mapView property
+    var centerCoordinate: CLLocationCoordinate2D?
+    
     let recognizerFullLabel = UITapGestureRecognizer()
-    let recognizerEmpty = UITapGestureRecognizer() // нажатие для создания новой ячейки
-    let recognizerDelete = UITapGestureRecognizer() // нажатие для удаления ячейки
     
     var dataModel = DataModel()
     
-    var collectionView: UICollectionView? = nil
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let layout = UICollectionViewFlowLayout()
-        collectionView = UICollectionView(frame: self.view.frame, collectionViewLayout: layout)
         
-        collectionView?.registerClass(FullCollectionViewCell.self, forCellWithReuseIdentifier: "FullCollectionViewCell")
-        collectionView?.registerClass(EmptyCollectionViewCell.self, forCellWithReuseIdentifier: "EmptyCollectionViewCell")
         
-        let nibFull = UINib(nibName: "FullCollectionViewCell", bundle: NSBundle.mainBundle())
-        collectionView?.registerNib(nibFull, forCellWithReuseIdentifier: "FullCollectionViewCell")
+        recognizerFullLabel.delegate = self
         
-        let nibEmpty = UINib(nibName: "EmptyCollectionViewCell", bundle: NSBundle.mainBundle())
-        collectionView?.registerNib(nibEmpty, forCellWithReuseIdentifier: "EmptyCollectionViewCell")
-        
-        collectionView?.dataSource = self
-        collectionView?.delegate = self
-        
-        collectionView?.backgroundColor = UIColor.clearColor()
-        collectionView?.frame = CGRectMake(0, 0, 340, 200)
-        
-        view.addSubview(collectionView!)
-        
-        recognizerFull.delegate = self
-        recognizerEmpty.delegate = self
     }
+    
+    
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         
@@ -56,24 +46,24 @@ class AddressViewController: UIViewController, UICollectionViewDataSource, UICol
         let cellEmpty = collectionView.dequeueReusableCellWithReuseIdentifier("EmptyCollectionViewCell", forIndexPath: indexPath) as! EmptyCollectionViewCell
         
         
-        if indexPath.row == 0 {
+        if dataModel.dataModel.count == 2 {
+            if indexPath.row == 0 {
+                return cellFull
+            } else {
+                return cellEmpty
+            }
+        } else if dataModel.dataModel.count == 3 {
+            if indexPath.row == 2 {
+                return cellEmpty
+            } else {
+                return cellFull
+            }
             
-            recognizerFull.addTarget(self, action: #selector(self.searchAddress))
-            recognizerFullLabel.addTarget(self, action: #selector(self.searchAddress))
-            recognizerFull.locationInView(cellFull.letterImage)
-            recognizerFull.numberOfTapsRequired = 1
-            cellFull.letterImage.addGestureRecognizer(recognizerFull)
-            cellFull.addressTextLabel.addGestureRecognizer(recognizerFullLabel)
-            
-            return cellFull
         } else {
-            recognizerEmpty.addTarget(self, action: #selector(self.addCellAtIndexPath))
-            recognizerEmpty.locationInView(cellEmpty.letterImage)
-            recognizerEmpty.numberOfTapsRequired = 1
-            cellEmpty.letterImage.addGestureRecognizer(recognizerEmpty)
-            return cellEmpty
+            return cellFull
         }
     }
+    
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
         return CGSizeMake(320, 50)
@@ -82,32 +72,34 @@ class AddressViewController: UIViewController, UICollectionViewDataSource, UICol
     // открывает поиск адреса или центрирует карту по выбранному адресу
     func searchAddress () {
         
+        centerCoordinate = CLLocationCoordinate2DMake(57, 35)
+        addressMapView.setCenterCoordinate(centerCoordinate!, animated: true)
         
     }
     
     // добавляет ячейку Full для адреса
-    func addCellAtIndexPath () {
+    @IBAction func addCellAtIndexPath (sender: UIButton) {
         
-        guard dataModel.dataModel.count < 3 else {
-            let alert = UIAlertController(title: "WARNING", message: "No more addresses allowed", preferredStyle: .Alert)
-            alert.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: nil))
-            presentViewController(alert, animated: true, completion: nil)
-            return
+        if sender.tag == 1001 {
+            print("my tag is 1001")
         }
         
         dataModel.updateDataModel("Three")
         
         print(dataModel.dataModel.count)
         
+        
         let indexPath = dataModel.generateIndexPath(0)
         
+       UIView.animateWithDuration(1.0, delay: 0, usingSpringWithDamping: 0.65, initialSpringVelocity: 0.0, options: .CurveEaseInOut, animations: { () -> Void in
         
-        UIView.animateWithDuration(1.0, delay: 0, usingSpringWithDamping: 0.65, initialSpringVelocity: 0.0, options: .CurveEaseInOut, animations: { () -> Void in
-            
-            self.collectionView!.insertItemsAtIndexPaths([indexPath])
-            
-            }, completion: nil)
+            self.addressCollectionView.insertItemsAtIndexPaths([indexPath])
         
+           }, completion: nil)
+    }
+    
+    @IBAction func addressFieldMakeActive(sender: UIButton) {
+        sender.backgroundColor = UIColor.blueColor()
     }
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

@@ -10,14 +10,15 @@ import UIKit
 
 class FullCollectionViewCell: UICollectionViewCell {
     
-    @IBOutlet weak var letterImage: UIImageView!
+    @IBOutlet weak var letterControl: UIButton!
     @IBOutlet weak var addressTextLabel: UILabel!
-    @IBOutlet weak var basketImage: UIImageView!
-
+    @IBOutlet weak var basketControl: UIButton!
+    
     
     override func awakeFromNib() {
         super.awakeFromNib()
         
     }
-
+    
+    
 }
