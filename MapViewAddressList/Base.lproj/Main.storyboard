@@ -58,6 +58,9 @@
                                                                 <constraint firstAttribute="width" constant="46" id="1Dd-vm-mF1"/>
                                                             </constraints>
                                                             <state key="normal" title="Уд"/>
+                                                            <connections>
+                                                                <action selector="deleteCellAtIndexPath:" destination="BYZ-38-t0r" eventType="touchUpInside" id="cUp-lG-Azn"/>
+                                                            </connections>
                                                         </button>
                                                         <label opaque="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2yf-x5-8Ft">
                                                             <rect key="frame" x="50" y="0.0" width="433" height="46"/>

@@ -99,7 +99,7 @@ class AddressViewController: UIViewController, UICollectionViewDataSource, UICol
                 self.addressCollectionView.insertItemsAtIndexPaths([indexPath])
                 
                 }, completion: nil)
-            
+          // FIXME: эта часть метода не работает
         } else if dataModel.dataModel.count == addressLimit {
             
             print(dataModel.dataModel.count)
@@ -112,6 +112,26 @@ class AddressViewController: UIViewController, UICollectionViewDataSource, UICol
         
         
     }
+    
+    @IBAction func deleteCellAtIndexPath(sender: UIButton) {
+        let touchPoint: CGPoint = sender.convertPoint(CGPointZero, toView: addressCollectionView)
+        let touchIndexPath = addressCollectionView.indexPathForItemAtPoint(touchPoint)
+        print("TouchIndexPath: \(touchIndexPath)")
+        
+        if let indexPath = touchIndexPath {
+            let layout = AddressCollectionViewLayout()
+            layout.disappearingItemsIndexPaths = [indexPath]
+            dataModel.dataModel.removeAtIndex(indexPath.row)
+            
+            UIView.animateWithDuration(0.65, delay: 0.0, options: .CurveEaseInOut, animations: { () -> Void in
+                self.addressCollectionView.deleteItemsAtIndexPaths([indexPath])
+            }) { (finished: Bool) -> Void in
+                layout.disappearingItemsIndexPaths = nil
+            }
+        }
+        
+    }
+    
     
     @IBAction func addressFieldMakeActive(sender: UIButton) {
         sender.backgroundColor = UIColor.blueColor()
