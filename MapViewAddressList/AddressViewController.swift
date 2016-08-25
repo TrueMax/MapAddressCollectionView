@@ -15,13 +15,8 @@ class AddressViewController: UIViewController, UICollectionViewDataSource, UICol
     @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var addressCollectionView: UICollectionView!
     
-    var selectedFullCell: FullCollectionViewCell?
-    var selectedEmptyCell: EmptyCollectionViewCell?
-    
-    
-    // mapView property
+        // mapView property
     var centerCoordinate: CLLocationCoordinate2D?
-    
     let recognizerFullLabel = UITapGestureRecognizer()
     
     var dataModel = DataModel()
@@ -32,16 +27,12 @@ class AddressViewController: UIViewController, UICollectionViewDataSource, UICol
         }
     }
     
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         recognizerFullLabel.delegate = self
         
     }
-    
-    
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         
