@@ -26,12 +26,16 @@ class AddressViewController: UIViewController, UICollectionViewDataSource, UICol
     
     var dataModel = DataModel()
     
+    internal var addressLimit: Int {
+        get {
+            return 3
+        }
+    }
+    
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
         
         recognizerFullLabel.delegate = self
         
@@ -46,13 +50,13 @@ class AddressViewController: UIViewController, UICollectionViewDataSource, UICol
         let cellEmpty = collectionView.dequeueReusableCellWithReuseIdentifier("EmptyCollectionViewCell", forIndexPath: indexPath) as! EmptyCollectionViewCell
         
         
-        if dataModel.dataModel.count == 2 {
+        if dataModel.dataModel.count < addressLimit {
             if indexPath.row == 0 {
                 return cellFull
             } else {
                 return cellEmpty
             }
-        } else if dataModel.dataModel.count == 3 {
+        } else if dataModel.dataModel.count == addressLimit {
             if indexPath.row == 2 {
                 return cellEmpty
             } else {
@@ -80,22 +84,33 @@ class AddressViewController: UIViewController, UICollectionViewDataSource, UICol
     // добавляет ячейку Full для адреса
     @IBAction func addCellAtIndexPath (sender: UIButton) {
         
-        if sender.tag == 1001 {
-            print("my tag is 1001")
+        let touchPoint: CGPoint = sender.convertPoint(CGPointZero, toView: addressCollectionView)
+        let touchIndexPath = addressCollectionView.indexPathForItemAtPoint(touchPoint)
+        print("TouchIndexPath: \(touchIndexPath)")
+        
+        if dataModel.dataModel.count < addressLimit {
+            
+            dataModel.updateDataModel("Three")
+            
+            let indexPath = dataModel.generateIndexPath(0)
+            
+            UIView.animateWithDuration(1.0, delay: 0, usingSpringWithDamping: 0.65, initialSpringVelocity: 0.0, options: .CurveEaseInOut, animations: { () -> Void in
+                
+                self.addressCollectionView.insertItemsAtIndexPaths([indexPath])
+                
+                }, completion: nil)
+            
+        } else if dataModel.dataModel.count == addressLimit {
+            
+            print(dataModel.dataModel.count)
+            if let indexPath = touchIndexPath {
+                addressCollectionView.dequeueReusableCellWithReuseIdentifier("FullCollectionViewCell", forIndexPath: indexPath)
+                    addressCollectionView.reloadItemsAtIndexPaths([indexPath])
+                
+            }
         }
         
-        dataModel.updateDataModel("Three")
         
-        print(dataModel.dataModel.count)
-        
-        
-        let indexPath = dataModel.generateIndexPath(0)
-        
-       UIView.animateWithDuration(1.0, delay: 0, usingSpringWithDamping: 0.65, initialSpringVelocity: 0.0, options: .CurveEaseInOut, animations: { () -> Void in
-        
-            self.addressCollectionView.insertItemsAtIndexPaths([indexPath])
-        
-           }, completion: nil)
     }
     
     @IBAction func addressFieldMakeActive(sender: UIButton) {

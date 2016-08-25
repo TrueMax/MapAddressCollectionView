@@ -8,6 +8,6 @@
 
 import UIKit
 
-class AddressCollectionViewLayout: UICollectionViewLayout {
+class AddressCollectionViewLayout: UICollectionViewFlowLayout {
 
 }
