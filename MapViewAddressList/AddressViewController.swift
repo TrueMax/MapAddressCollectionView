@@ -46,6 +46,8 @@ class AddressViewController: UIViewController, UICollectionViewDataSource, UICol
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         
         let cellFull = collectionView.dequeueReusableCellWithReuseIdentifier("FullCollectionViewCell", forIndexPath: indexPath) as! FullCollectionViewCell
+        recognizerFullLabel.addTarget(self, action: #selector(self.searchAddress))
+        cellFull.addressTextLabel.addGestureRecognizer(recognizerFullLabel)
         
         let cellEmpty = collectionView.dequeueReusableCellWithReuseIdentifier("EmptyCollectionViewCell", forIndexPath: indexPath) as! EmptyCollectionViewCell
         
@@ -99,7 +101,7 @@ class AddressViewController: UIViewController, UICollectionViewDataSource, UICol
                 self.addressCollectionView.insertItemsAtIndexPaths([indexPath])
                 
                 }, completion: nil)
-          // FIXME: эта часть метода не работает
+          // FIXME: эта часть метода не работает, потому что требуется вносить изменения в layout
         } else if dataModel.dataModel.count == addressLimit {
             
             print(dataModel.dataModel.count)
