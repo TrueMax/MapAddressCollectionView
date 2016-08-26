@@ -25,6 +25,7 @@ class GoogleMapViewController: UIViewController {
     var delegate: GoogleMapViewControllerDelegate?
     
     @IBOutlet weak var mapView: MKMapView!
+    @IBOutlet weak var containerView: UIView!
     
     private let mapAddress = "Одинцово" // сюда будет передаваться адрес после операции обратного геокодирования с карты, это функционал внутренний self
     

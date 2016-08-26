@@ -11,6 +11,10 @@ import MapKit
 
 class AddressViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, GoogleMapViewControllerDelegate  {
     
+    override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
+        addressCollectionView.setNeedsLayout()
+    }
+    
     @IBOutlet weak var addressCollectionView: UICollectionView!
     
     var dataModel = DataModel() // источник данных для AddressViewController
@@ -22,6 +26,9 @@ class AddressViewController: UIViewController, UICollectionViewDataSource, UICol
         mapDelegate = self
         addressCollectionView.delegate = self
         addressCollectionView.dataSource = self
+        
+        let moveGestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(moveCollectionViewCells(_:)))
+        addressCollectionView.addGestureRecognizer(moveGestureRecognizer)
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
@@ -110,6 +117,31 @@ class AddressViewController: UIViewController, UICollectionViewDataSource, UICol
             }
         }
         
+    }
+    
+    func moveCollectionViewCells(gestureRecognizer: UILongPressGestureRecognizer) {
+        
+        switch gestureRecognizer.state {
+            
+        case .Began:
+            guard let initialIndexPath = addressCollectionView.indexPathForItemAtPoint(gestureRecognizer.locationInView(addressCollectionView)) else {
+            break
+        }
+                addressCollectionView.beginInteractiveMovementForItemAtIndexPath(initialIndexPath)
+        case .Changed:
+                addressCollectionView.updateInteractiveMovementTargetPosition(gestureRecognizer.locationInView(gestureRecognizer.view))
+        case .Ended:
+                addressCollectionView.endInteractiveMovement()
+        default: addressCollectionView.cancelInteractiveMovement()
+            
+        }
+        
+    }
+    
+    func collectionView(collectionView: UICollectionView, moveItemAtIndexPath sourceIndexPath: NSIndexPath, toIndexPath destinationIndexPath: NSIndexPath) {
+        
+        let firstElement = dataModel.dataModel.removeAtIndex(sourceIndexPath.row)
+        dataModel.dataModel.insert(firstElement, atIndex: destinationIndexPath.row)
     }
     
     
