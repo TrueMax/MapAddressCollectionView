@@ -18,6 +18,7 @@
 		94268F3F1D6D9C8E0016ABC5 /* AddressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94268F3E1D6D9C8E0016ABC5 /* AddressViewController.swift */; };
 		94268F411D6DE8C70016ABC5 /* DataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94268F401D6DE8C70016ABC5 /* DataModel.swift */; };
 		94EDC9A51D6EF528005183E0 /* LetterControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94EDC9A41D6EF528005183E0 /* LetterControl.swift */; };
+		94EDC9A71D7042FF005183E0 /* GoogleMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94EDC9A61D7042FF005183E0 /* GoogleMapViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +35,7 @@
 		94268F3E1D6D9C8E0016ABC5 /* AddressViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddressViewController.swift; sourceTree = "<group>"; };
 		94268F401D6DE8C70016ABC5 /* DataModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataModel.swift; sourceTree = "<group>"; };
 		94EDC9A41D6EF528005183E0 /* LetterControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LetterControl.swift; sourceTree = "<group>"; };
+		94EDC9A61D7042FF005183E0 /* GoogleMapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoogleMapViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,6 +76,7 @@
 				94268F291D6CB1840016ABC5 /* Info.plist */,
 				94268F3E1D6D9C8E0016ABC5 /* AddressViewController.swift */,
 				94268F401D6DE8C70016ABC5 /* DataModel.swift */,
+				94EDC9A61D7042FF005183E0 /* GoogleMapViewController.swift */,
 			);
 			path = MapViewAddressList;
 			sourceTree = "<group>";
@@ -167,6 +170,7 @@
 				94268F341D6D93EE0016ABC5 /* AddressCollectionViewLayout.swift in Sources */,
 				94268F1E1D6CB1840016ABC5 /* AppDelegate.swift in Sources */,
 				94268F411D6DE8C70016ABC5 /* DataModel.swift in Sources */,
+				94EDC9A71D7042FF005183E0 /* GoogleMapViewController.swift in Sources */,
 				94268F3F1D6D9C8E0016ABC5 /* AddressViewController.swift in Sources */,
 				94268F301D6D90EF0016ABC5 /* AddressCollectionViewController.swift in Sources */,
 				94EDC9A51D6EF528005183E0 /* LetterControl.swift in Sources */,

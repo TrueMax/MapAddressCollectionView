@@ -10,8 +10,8 @@ import UIKit
 
 class EmptyCollectionViewCell: UICollectionViewCell {
     
-    // tag = 1001 
-    @IBOutlet weak var letterControl: UIButton!
+    // tag = indexPath.item
+    @IBOutlet weak var letterControlButton: UIButton!
 
     override func awakeFromNib() {
         super.awakeFromNib()

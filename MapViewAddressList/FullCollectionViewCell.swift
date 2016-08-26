@@ -10,9 +10,9 @@ import UIKit
 
 class FullCollectionViewCell: UICollectionViewCell {
     
-    @IBOutlet weak var letterControl: UIButton!
-    @IBOutlet weak var addressTextLabel: UILabel!
-    @IBOutlet weak var basketControl: UIButton!
+    @IBOutlet weak var letterControlButton: UIButton!
+    @IBOutlet weak var addressTextButton: UIButton!
+    @IBOutlet weak var deleteButton: UIButton!
     
     
     override func awakeFromNib() {

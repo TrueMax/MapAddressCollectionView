@@ -9,47 +9,35 @@
 import UIKit
 import MapKit
 
-class AddressViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UIGestureRecognizerDelegate {
+class AddressViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, GoogleMapViewControllerDelegate  {
     
-    @IBOutlet weak var addressMapView: MKMapView!
-    @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var addressCollectionView: UICollectionView!
     
-        // mapView property
-    var centerCoordinate: CLLocationCoordinate2D?
-    let recognizerFullLabel = UITapGestureRecognizer()
-    
-    var dataModel = DataModel()
-    
-    internal var addressLimit: Int {
-        get {
-            return 3
-        }
-    }
+    var dataModel = DataModel() // источник данных для AddressViewController
+    var mapDelegate: GoogleMapViewControllerDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        recognizerFullLabel.delegate = self
-        
+        mapDelegate = self
+        addressCollectionView.delegate = self
+        addressCollectionView.dataSource = self
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         
         let cellFull = collectionView.dequeueReusableCellWithReuseIdentifier("FullCollectionViewCell", forIndexPath: indexPath) as! FullCollectionViewCell
-        recognizerFullLabel.addTarget(self, action: #selector(self.searchAddress))
-        cellFull.addressTextLabel.addGestureRecognizer(recognizerFullLabel)
         
         let cellEmpty = collectionView.dequeueReusableCellWithReuseIdentifier("EmptyCollectionViewCell", forIndexPath: indexPath) as! EmptyCollectionViewCell
         
         
-        if dataModel.dataModel.count < addressLimit {
+        if dataModel.dataModel.count < dataModel.addressLimit {
             if indexPath.row == 0 {
                 return cellFull
             } else {
                 return cellEmpty
             }
-        } else if dataModel.dataModel.count == addressLimit {
+        } else if dataModel.dataModel.count == dataModel.addressLimit {
             if indexPath.row == 2 {
                 return cellEmpty
             } else {
@@ -61,16 +49,15 @@ class AddressViewController: UIViewController, UICollectionViewDataSource, UICol
         }
     }
     
-    
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
-        return CGSizeMake(320, 50)
+        let cellWidth = collectionView.frame.size.width - 20
+        let cellHeight = CGFloat(50)
+        let size = CGSizeMake(cellWidth, cellHeight)
+        return size
     }
     
-    // открывает поиск адреса или центрирует карту по выбранному адресу
+    // открывает поиск адреса - условный SearchViewController, но вообще этот метод нужно переместить, а оставить только функционал ячейки CollectionView: нажали на кнопку SEARCH - ищем адрес, button.tag = indexPath.item
     func searchAddress () {
-        
-        centerCoordinate = CLLocationCoordinate2DMake(57, 35)
-        addressMapView.setCenterCoordinate(centerCoordinate!, animated: true)
         
     }
     
@@ -81,7 +68,7 @@ class AddressViewController: UIViewController, UICollectionViewDataSource, UICol
         let touchIndexPath = addressCollectionView.indexPathForItemAtPoint(touchPoint)
         print("TouchIndexPath: \(touchIndexPath)")
         
-        if dataModel.dataModel.count < addressLimit {
+        if dataModel.dataModel.count < dataModel.addressLimit {
             
             dataModel.updateDataModel("Three")
             
@@ -93,7 +80,7 @@ class AddressViewController: UIViewController, UICollectionViewDataSource, UICol
                 
                 }, completion: nil)
           // FIXME: эта часть метода не работает, потому что требуется вносить изменения в layout
-        } else if dataModel.dataModel.count == addressLimit {
+        } else if dataModel.dataModel.count == dataModel.addressLimit {
             
             print(dataModel.dataModel.count)
             if let indexPath = touchIndexPath {
@@ -127,7 +114,8 @@ class AddressViewController: UIViewController, UICollectionViewDataSource, UICol
     
     
     @IBAction func addressFieldMakeActive(sender: UIButton) {
-        sender.backgroundColor = UIColor.blueColor()
+        let title = mapDelegate?.address ?? "Default placeholder address"
+        sender.setTitle(title, forState: .Normal)
     }
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -138,6 +126,8 @@ class AddressViewController: UIViewController, UICollectionViewDataSource, UICol
     func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWithGestureRecognizer otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         return true
     }
-
+// MARK: вспомогательные функции 
+    
     
 }
+

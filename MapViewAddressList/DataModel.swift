@@ -14,6 +14,12 @@ class DataModel: UIViewController {
     var dataModel: [String] = ["One", "Two"]
     var index: Int?
     
+    var addressLimit: Int {
+        get {
+            return 3
+        }
+    }
+    
     func assignIndex(parameter: NSIndexPath) -> Int {
         index = parameter.row
         return index!
