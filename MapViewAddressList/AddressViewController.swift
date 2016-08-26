@@ -39,7 +39,7 @@ class AddressViewController: UIViewController, UICollectionViewDataSource, UICol
             }
         } else if dataModel.dataModel.count == dataModel.addressLimit {
             if indexPath.row == 2 {
-                return cellEmpty
+                return cellFull
             } else {
                 return cellFull
             }
@@ -72,20 +72,20 @@ class AddressViewController: UIViewController, UICollectionViewDataSource, UICol
             
             dataModel.updateDataModel("Three")
             
-            let indexPath = dataModel.generateIndexPath(0)
             
+            let indexPath = dataModel.generateIndexPath(0)
             UIView.animateWithDuration(1.0, delay: 0, usingSpringWithDamping: 0.65, initialSpringVelocity: 0.0, options: .CurveEaseInOut, animations: { () -> Void in
                 
                 self.addressCollectionView.insertItemsAtIndexPaths([indexPath])
                 
                 }, completion: nil)
           // FIXME: эта часть метода не работает, потому что требуется вносить изменения в layout
-        } else if dataModel.dataModel.count == dataModel.addressLimit {
+        } else if touchIndexPath?.row == dataModel.addressLimit-1 {
             
             print(dataModel.dataModel.count)
             if let indexPath = touchIndexPath {
                 addressCollectionView.dequeueReusableCellWithReuseIdentifier("FullCollectionViewCell", forIndexPath: indexPath)
-                    addressCollectionView.reloadItemsAtIndexPaths([indexPath])
+                addressCollectionView.reloadItemsAtIndexPaths([indexPath])
                 
             }
         }
@@ -116,6 +116,7 @@ class AddressViewController: UIViewController, UICollectionViewDataSource, UICol
     @IBAction func addressFieldMakeActive(sender: UIButton) {
         let title = mapDelegate?.address ?? "Default placeholder address"
         sender.setTitle(title, forState: .Normal)
+        
     }
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
