@@ -31,9 +31,9 @@ class AddressViewController: UIViewController, UICollectionViewDataSource, UICol
     var current_count = 0
     
     var previous_count = 0
-    var ascending_count: Bool {
-        return current_count > previous_count
-    }
+   // var ascending_count: Bool {
+    //    return current_count > previous_count
+   // }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -57,9 +57,15 @@ class AddressViewController: UIViewController, UICollectionViewDataSource, UICol
         
         switch (indexPath.row) {
         case 0:
+            if current_count < 2 {
+            cellFull.deleteButton.enabled = false
             return cellFull
+            
+            } else {
+                return cellFull
+            }
         case 1:
-            if current_count >= 2 {
+            if current_count == 2 {
                 return cellFull
             } else {
             return cellEmpty
@@ -154,28 +160,30 @@ class AddressViewController: UIViewController, UICollectionViewDataSource, UICol
         if current_count < dataModel.addressLimit {
             
             print("PREVIOUS COUNT: \(previous_count), CURRENT COUNT: \(current_count)")
-
+            
             let indexPath = touchIndexPath
             previous_count = previous_count + 1
             print("PREVIOUS COUNT: \(previous_count), CURRENT COUNT: \(current_count)")
-            UIView.animateWithDuration(1.0, delay: 0, usingSpringWithDamping: 0.65, initialSpringVelocity: 0.0, options: .CurveEaseInOut, animations: { () -> Void in
+            UIView.animateWithDuration(1.0, delay: 0.4, usingSpringWithDamping: 0.65, initialSpringVelocity: 0.0, options: .CurveEaseInOut, animations: { () -> Void in
                 
                 self.addressCollectionView.insertItemsAtIndexPaths([indexPath!])
                 
-                }, completion: nil)
-          // FIXME: эта часть метода не работает, потому что требуется вносить изменения в layout
-//        } else if touchIndexPath?.row == dataModel.addressLimit-1 {
-//            
-//            
-//            if let indexPath = touchIndexPath {
-//                addressCollectionView.dequeueReusableCellWithReuseIdentifier("FullCollectionViewCell", forIndexPath: indexPath)
-//                addressCollectionView.reloadItemsAtIndexPaths([indexPath])
-//                
-//            }
-//        }
-//        
-        
+                // completion почему-то не работает, надо разбираться, почему
+                }, completion: { _ in
+                    
+                    let firstCellIndexPath = self.addressCollectionView.indexPathsForVisibleItems().first
+                    if let _indexPath = firstCellIndexPath {
+                        
+                        let cell = self.addressCollectionView.cellForItemAtIndexPath(_indexPath) as! FullCollectionViewCell
+                        cell.deleteButton.enabled = true
+                        
+                        
+                    }
+            })
+                    
         } else if current_count == dataModel.addressLimit {
+            previous_count = previous_count + 1
+            print("PREVIOUS COUNT: \(previous_count), CURRENT COUNT: \(current_count)")
             let indexPath = touchIndexPath
             addressCollectionView.reloadItemsAtIndexPaths([indexPath!])
         }
@@ -186,18 +194,37 @@ class AddressViewController: UIViewController, UICollectionViewDataSource, UICol
         let touchIndexPath = addressCollectionView.indexPathForItemAtPoint(touchPoint)
         print("TouchIndexPath: \(touchIndexPath)")
         
-        if let indexPath = touchIndexPath {
-            let layout = AddressCollectionViewLayout()
-            layout.disappearingItemsIndexPaths = [indexPath]
-            dataModel.dataModel.removeAtIndex(indexPath.row)
-            
-            UIView.animateWithDuration(0.65, delay: 0.0, options: .CurveEaseInOut, animations: { () -> Void in
-                self.addressCollectionView.deleteItemsAtIndexPaths([indexPath])
-            }) { (finished: Bool) -> Void in
-                layout.disappearingItemsIndexPaths = nil
-            }
-        }
         
+        if let indexPath = touchIndexPath {
+            if current_count == dataModel.addressLimit {
+                
+                previous_count = current_count
+                current_count = current_count - 1
+                
+                let layout = AddressCollectionViewLayout()
+                layout.disappearingItemsIndexPaths = [indexPath]
+                dataModel.dataModel.removeAtIndex(indexPath.row)
+                
+                addressCollectionView.reloadItemsAtIndexPaths([indexPath])
+                print("PREVIOUS COUNT: \(previous_count), CURRENT COUNT: \(current_count)")
+                
+                 } else {
+                
+                previous_count = current_count
+                current_count = current_count - 1
+                
+                let layout = AddressCollectionViewLayout()
+                layout.disappearingItemsIndexPaths = [indexPath]
+                dataModel.dataModel.removeAtIndex(indexPath.row)
+                
+                UIView.animateWithDuration(0.65, delay: 0.0, options: .CurveEaseInOut, animations: { () -> Void in
+                    self.addressCollectionView.deleteItemsAtIndexPaths([indexPath])
+                }) { (finished: Bool) -> Void in
+                    layout.disappearingItemsIndexPaths = nil
+                }
+            }
+            
+        }
     }
     
     func moveCollectionViewCells(gestureRecognizer: UILongPressGestureRecognizer) {
@@ -220,15 +247,6 @@ class AddressViewController: UIViewController, UICollectionViewDataSource, UICol
     }
     
     // метод не работает - не вызывается, потому что должен следовать за вызовом collectionView (shouldShowMenuForItemAt: ), а мы не вызываем меню редактирования
-    func collectionView(collectionView: UICollectionView, canPerformAction action: Selector, forItemAtIndexPath indexPath: NSIndexPath, withSender sender: AnyObject?) -> Bool {
-        guard collectionView == addressCollectionView else { return true }
-        let method = #selector(self.deleteCellAtIndexPath(_:))
-        if indexPath.row == 0 && action == method {
-            return false
-        }
-        return true
-    }
-    
     
     func collectionView(collectionView: UICollectionView, moveItemAtIndexPath sourceIndexPath: NSIndexPath, toIndexPath destinationIndexPath: NSIndexPath) {
         
@@ -246,10 +264,21 @@ class AddressViewController: UIViewController, UICollectionViewDataSource, UICol
     }
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if current_count == 1 {
-        return 2
-        } else {
-        return dataModel.addressLimit
+        
+        switch (current_count, previous_count) {
+        case (1, 0):
+            return 2
+        case (2, 0):
+            return dataModel.addressLimit
+        case (2, 1):
+            return dataModel.addressLimit
+        case (3, 2):
+            return dataModel.addressLimit
+        case (2, 3), (3, 4):
+            return dataModel.addressLimit
+        case (1, 2):
+            return 2
+        default: return dataModel.addressLimit
         }
     }
 

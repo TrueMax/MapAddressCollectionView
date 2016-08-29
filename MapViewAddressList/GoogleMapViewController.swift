@@ -61,14 +61,17 @@ class GoogleMapViewController: UIViewController, AddressViewDelegate {
         return address
     }
     
+    // в метод передается адрес в формате dictionary, посредством LocationManager преобразуется в координаты точки с заданной точностью / приближением
     private func makeDirectGeocoding(address: [String: AnyObject]) -> CLLocationCoordinate2D {
+        
         let coordinates = CLLocationCoordinate2DMake(57, 35)
         return coordinates
     }
     
+    
     private func centerMapOnLocationWithReceivedAddress() {
         
-        centerCoordinate = CLLocationCoordinate2DMake(57, 35)
+        centerCoordinate = CLLocationCoordinate2DMake(57, 35) // сюда должны передаваться координаты - результат вычислений метода makeDirectGeocoding(_:)
         mapView.setCenterCoordinate(centerCoordinate!, animated: true)
     }
     
