@@ -25,15 +25,10 @@ class AddressViewController: UIViewController, UICollectionViewDataSource, UICol
     
     @IBOutlet weak var addressCollectionView: UICollectionView!
     
-    var dataModel = DataModel() // источник данных для AddressViewController
+    private var dataModel = DataModel() // источник данных для AddressViewController
     var delegate: AddressViewDelegate?
-    
-    var current_count = 0
-    
-    var previous_count = 0
-   // var ascending_count: Bool {
-    //    return current_count > previous_count
-   // }
+    private var current_count = 0
+    private var previous_count = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -79,60 +74,6 @@ class AddressViewController: UIViewController, UICollectionViewDataSource, UICol
         default:
             return cellEmpty
         }
-        
-//        if ascending_count {
-//            switch (current_count, previous_count) {
-//            case (1, 0):
-//                
-//                print ("DATAMODEL.COUNT = \(dataModel.dataModel.count)")
-//                if indexPath.row == 0 {
-//                    cellFull.deleteButton.enabled = false
-//                    return cellFull
-//                } else {
-//                    return cellEmpty
-//                }
-//            case (2, 1):
-//                print ("DATAMODEL.COUNT = \(dataModel.dataModel.count)")
-//                if indexPath.row < 2 {
-//                    cellFull.deleteButton.enabled = true
-//                    return cellFull
-//                } else {
-//                    return cellEmpty
-//                }
-//            case (3, 2):
-//                print ("DATAMODEL.COUNT = \(dataModel.dataModel.count)")
-//                cellFull.deleteButton.enabled = true
-//                return cellFull
-//                
-//            default: break
-//            }
-//        } else {
-//            return cellEmpty
-//        }
-        
-    
-        
-//        if dataModel.dataModel.count < dataModel.addressLimit {
-//            if indexPath.row == 0 {
-//                cellFull.deleteButton.enabled = false
-//                return cellFull
-//            } else {
-//                return cellEmpty
-//            }
-//        } else if dataModel.dataModel.count == dataModel.addressLimit {
-//            if indexPath.row == 2 {
-//                cellFull.deleteButton.enabled = true
-//                return cellFull
-//            } else {
-//                cellFull.deleteButton.enabled = true
-//                return cellFull
-//            }
-//            
-//        } else {
-//            cellFull.deleteButton.enabled = true
-//            return cellFull
-//        }
-        
     }
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
@@ -281,13 +222,10 @@ class AddressViewController: UIViewController, UICollectionViewDataSource, UICol
         default: return dataModel.addressLimit
         }
     }
-
     
-    func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWithGestureRecognizer otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+    private func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWithGestureRecognizer otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         return true
     }
-// MARK: вспомогательные функции 
-    
-    
+
 }
 
