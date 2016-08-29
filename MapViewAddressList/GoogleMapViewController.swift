@@ -12,20 +12,10 @@
 import UIKit
 import MapKit
 
-@objc protocol GoogleMapViewControllerDelegate {
-    optional var address: String { get set } // get - делегат берет адрес у карты, set - делегат назначает адрес для карты сам
-    optional func addressIsProvidedByMap() -> Bool // опции 1. true - адрес пришел с карты 2. false - адрес введен иным образом
-    optional func addressIsTapped() -> Bool // опции 1. true - пользователь нажал ячейку с адресом на делегате 2. false -> по умолчанию
-}
-
-
-
-class GoogleMapViewController: UIViewController {
-    
-    var delegate: GoogleMapViewControllerDelegate?
+class GoogleMapViewController: UIViewController, AddressViewDelegate {
     
     @IBOutlet weak var mapView: MKMapView!
-    @IBOutlet weak var containerView: UIView!
+    
     
     private let mapAddress = "Одинцово" // сюда будет передаваться адрес после операции обратного геокодирования с карты, это функционал внутренний self
     
@@ -33,12 +23,10 @@ class GoogleMapViewController: UIViewController {
         get {
                 return mapAddress
             }
-        // setter для адреса, передаваемого от делегата
         set {
-            if let delegate = delegate {
-                delegate.address
-            }
+            
         }
+        
     }
     // если адрес передан карте, карта центрируется по переданному адресу
     var receivedAddress: String? {
@@ -46,6 +34,10 @@ class GoogleMapViewController: UIViewController {
             receivedAddress = _address
             centerMapOnLocationWithReceivedAddress()
         }
+    }
+    
+    func addressDidTapped() {
+        centerMapOnLocationWithReceivedAddress()
     }
     
     var centerCoordinate: CLLocationCoordinate2D?
@@ -91,6 +83,12 @@ class GoogleMapViewController: UIViewController {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
+        
+        if segue.identifier == "mapToAddressViewControllerSegue" {
+            let controller = segue.destinationViewController as! AddressViewController
+            controller.delegate = self
+        }
+        
     }
     
 

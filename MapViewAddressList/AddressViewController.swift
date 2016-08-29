@@ -9,26 +9,44 @@
 import UIKit
 import MapKit
 
-class AddressViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, GoogleMapViewControllerDelegate  {
+@objc protocol AddressViewDelegate {
     
-    override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
-        addressCollectionView.setNeedsLayout()
-    }
+        optional var address: String { get set } // get - делегат берет адрес у карты, set - делегат назначает адрес для карты сам
+        optional var addressIsProvidedByMap: Bool { get } // опции 1. true - адрес пришел с карты 2. false - адрес введен иным образом
+        func addressDidTapped() // пользователь нажал ячейку с адресом на делегате 
+}
+
+
+class AddressViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout  {
+    
+//    override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
+//        addressCollectionView.setNeedsLayout()
+//    }
     
     @IBOutlet weak var addressCollectionView: UICollectionView!
     
     var dataModel = DataModel() // источник данных для AddressViewController
-    var mapDelegate: GoogleMapViewControllerDelegate?
+    var delegate: AddressViewDelegate?
+    
+    var current_count = 0
+    
+    var previous_count = 0
+    var ascending_count: Bool {
+        return current_count > previous_count
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        mapDelegate = self
         addressCollectionView.delegate = self
         addressCollectionView.dataSource = self
         
         let moveGestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(moveCollectionViewCells(_:)))
         addressCollectionView.addGestureRecognizer(moveGestureRecognizer)
+        
+        addressCollectionView.translatesAutoresizingMaskIntoConstraints = true
+        
+        current_count = dataModel.dataModel.count
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
@@ -37,28 +55,83 @@ class AddressViewController: UIViewController, UICollectionViewDataSource, UICol
         
         let cellEmpty = collectionView.dequeueReusableCellWithReuseIdentifier("EmptyCollectionViewCell", forIndexPath: indexPath) as! EmptyCollectionViewCell
         
-        
-        if dataModel.dataModel.count < dataModel.addressLimit {
-            if indexPath.row == 0 {
+        switch (indexPath.row) {
+        case 0:
+            return cellFull
+        case 1:
+            if current_count >= 2 {
+                return cellFull
+            } else {
+            return cellEmpty
+            }
+        case 2:
+            if current_count == 3 {
                 return cellFull
             } else {
                 return cellEmpty
             }
-        } else if dataModel.dataModel.count == dataModel.addressLimit {
-            if indexPath.row == 2 {
-                return cellFull
-            } else {
-                return cellFull
-            }
-            
-        } else {
-            return cellFull
+        default:
+            return cellEmpty
         }
+        
+//        if ascending_count {
+//            switch (current_count, previous_count) {
+//            case (1, 0):
+//                
+//                print ("DATAMODEL.COUNT = \(dataModel.dataModel.count)")
+//                if indexPath.row == 0 {
+//                    cellFull.deleteButton.enabled = false
+//                    return cellFull
+//                } else {
+//                    return cellEmpty
+//                }
+//            case (2, 1):
+//                print ("DATAMODEL.COUNT = \(dataModel.dataModel.count)")
+//                if indexPath.row < 2 {
+//                    cellFull.deleteButton.enabled = true
+//                    return cellFull
+//                } else {
+//                    return cellEmpty
+//                }
+//            case (3, 2):
+//                print ("DATAMODEL.COUNT = \(dataModel.dataModel.count)")
+//                cellFull.deleteButton.enabled = true
+//                return cellFull
+//                
+//            default: break
+//            }
+//        } else {
+//            return cellEmpty
+//        }
+        
+    
+        
+//        if dataModel.dataModel.count < dataModel.addressLimit {
+//            if indexPath.row == 0 {
+//                cellFull.deleteButton.enabled = false
+//                return cellFull
+//            } else {
+//                return cellEmpty
+//            }
+//        } else if dataModel.dataModel.count == dataModel.addressLimit {
+//            if indexPath.row == 2 {
+//                cellFull.deleteButton.enabled = true
+//                return cellFull
+//            } else {
+//                cellFull.deleteButton.enabled = true
+//                return cellFull
+//            }
+//            
+//        } else {
+//            cellFull.deleteButton.enabled = true
+//            return cellFull
+//        }
+        
     }
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
         let cellWidth = collectionView.frame.size.width - 20
-        let cellHeight = CGFloat(50)
+        let cellHeight = CGFloat(40)
         let size = CGSizeMake(cellWidth, cellHeight)
         return size
     }
@@ -71,33 +144,41 @@ class AddressViewController: UIViewController, UICollectionViewDataSource, UICol
     // добавляет ячейку Full для адреса
     @IBAction func addCellAtIndexPath (sender: UIButton) {
         
+        dataModel.updateDataModel("Address")
+        current_count = current_count + 1
+        
         let touchPoint: CGPoint = sender.convertPoint(CGPointZero, toView: addressCollectionView)
         let touchIndexPath = addressCollectionView.indexPathForItemAtPoint(touchPoint)
         print("TouchIndexPath: \(touchIndexPath)")
         
-        if dataModel.dataModel.count < dataModel.addressLimit {
+        if current_count < dataModel.addressLimit {
             
-            dataModel.updateDataModel("Three")
-            
-            
-            let indexPath = dataModel.generateIndexPath(0)
+            print("PREVIOUS COUNT: \(previous_count), CURRENT COUNT: \(current_count)")
+
+            let indexPath = touchIndexPath
+            previous_count = previous_count + 1
+            print("PREVIOUS COUNT: \(previous_count), CURRENT COUNT: \(current_count)")
             UIView.animateWithDuration(1.0, delay: 0, usingSpringWithDamping: 0.65, initialSpringVelocity: 0.0, options: .CurveEaseInOut, animations: { () -> Void in
                 
-                self.addressCollectionView.insertItemsAtIndexPaths([indexPath])
+                self.addressCollectionView.insertItemsAtIndexPaths([indexPath!])
                 
                 }, completion: nil)
           // FIXME: эта часть метода не работает, потому что требуется вносить изменения в layout
-        } else if touchIndexPath?.row == dataModel.addressLimit-1 {
-            
-            print(dataModel.dataModel.count)
-            if let indexPath = touchIndexPath {
-                addressCollectionView.dequeueReusableCellWithReuseIdentifier("FullCollectionViewCell", forIndexPath: indexPath)
-                addressCollectionView.reloadItemsAtIndexPaths([indexPath])
-                
-            }
+//        } else if touchIndexPath?.row == dataModel.addressLimit-1 {
+//            
+//            
+//            if let indexPath = touchIndexPath {
+//                addressCollectionView.dequeueReusableCellWithReuseIdentifier("FullCollectionViewCell", forIndexPath: indexPath)
+//                addressCollectionView.reloadItemsAtIndexPaths([indexPath])
+//                
+//            }
+//        }
+//        
+        
+        } else if current_count == dataModel.addressLimit {
+            let indexPath = touchIndexPath
+            addressCollectionView.reloadItemsAtIndexPaths([indexPath!])
         }
-        
-        
     }
     
     @IBAction func deleteCellAtIndexPath(sender: UIButton) {
@@ -138,6 +219,17 @@ class AddressViewController: UIViewController, UICollectionViewDataSource, UICol
         
     }
     
+    // метод не работает - не вызывается, потому что должен следовать за вызовом collectionView (shouldShowMenuForItemAt: ), а мы не вызываем меню редактирования
+    func collectionView(collectionView: UICollectionView, canPerformAction action: Selector, forItemAtIndexPath indexPath: NSIndexPath, withSender sender: AnyObject?) -> Bool {
+        guard collectionView == addressCollectionView else { return true }
+        let method = #selector(self.deleteCellAtIndexPath(_:))
+        if indexPath.row == 0 && action == method {
+            return false
+        }
+        return true
+    }
+    
+    
     func collectionView(collectionView: UICollectionView, moveItemAtIndexPath sourceIndexPath: NSIndexPath, toIndexPath destinationIndexPath: NSIndexPath) {
         
         let firstElement = dataModel.dataModel.removeAtIndex(sourceIndexPath.row)
@@ -146,13 +238,19 @@ class AddressViewController: UIViewController, UICollectionViewDataSource, UICol
     
     
     @IBAction func addressFieldMakeActive(sender: UIButton) {
-        let title = mapDelegate?.address ?? "Default placeholder address"
+        let title = "Default placeholder address"
         sender.setTitle(title, forState: .Normal)
         
+        // здесь нужно передать делегату значение
+        delegate?.addressDidTapped()
     }
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return dataModel.dataModel.count
+        if current_count == 1 {
+        return 2
+        } else {
+        return dataModel.addressLimit
+        }
     }
 
     

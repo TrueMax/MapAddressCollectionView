@@ -11,7 +11,7 @@ import UIKit
 
 class DataModel: UIViewController {
     
-    var dataModel: [String] = ["One", "Two"]
+    var dataModel: [String] = ["One Address"]
     var index: Int?
     
     var addressLimit: Int {
