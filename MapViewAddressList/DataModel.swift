@@ -7,9 +7,8 @@
 //
 
 import Foundation
-import UIKit
 
-class DataModel: UIViewController {
+struct DataModel {
     
     var dataModel: [String] = ["One Address"]
     var index: Int?
@@ -20,12 +19,12 @@ class DataModel: UIViewController {
         }
     }
     
-    func assignIndex(parameter: NSIndexPath) -> Int {
+    mutating func assignIndex(parameter: NSIndexPath) -> Int {
         index = parameter.row
         return index!
     }
     
-    func updateDataModel(element: String) -> [String] {
+    mutating func updateDataModel(element: String) -> [String] {
         
         index = 1
         

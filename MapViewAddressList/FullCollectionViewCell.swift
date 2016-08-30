@@ -10,6 +10,8 @@ import UIKit
 
 class FullCollectionViewCell: UICollectionViewCell {
     
+    static let lineColor = UIColor(red: 255/255, green: 192/255, blue: 0/255, alpha: 1)
+    
     @IBOutlet weak var letterControlButton: UIButton!
     @IBOutlet weak var addressTextLabel: UILabel!
     @IBOutlet weak var deleteButton: UIButton!

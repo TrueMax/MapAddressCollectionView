@@ -9,20 +9,13 @@
 import UIKit
 import MapKit
 
+
 @objc protocol AddressViewDelegate {
     
-    optional func addressDidTapped() // пользователь нажал ячейку с адресом - перевел надувной шарик в активное состояние
-    optional func addressSearchDidActivated(index: Int) // нажатие средней кнопки / label активирует алгоритм выбора адреса (поиск, favorites, адрес из списка, ввод с клавиатуры)
-    optional func addressDidDeleted(index: Int)// адресная ячейка удалена из AddressView
-    optional func addressDidMoved(from index: Int, toIndexPath: Int)
-}
-
-@objc protocol AddessViewDelegateAyham {
-    
     //Пока AnyObject а на самом деле должно быть объект типа Address
-    optional func addressViewController(addressesVC: AddressViewController, didTabAddress address: AnyObject, AtIndex index: Int)
-    optional func addressViewController(addressesVC: AddressViewController, didActiveAddress address: AnyObject, AtIndex index: Int)
-    optional func addressViewController(addressesVC: AddressViewController, didDeactiveAddress address: AnyObject, AtIndex index: Int)
+    optional func addressViewController(addressesVC: AddressViewController, didTapAddressMark address: AnyObject, AtIndex index: Int)
+    optional func addressViewController(addressesVC: AddressViewController, didActivateAddress address: AnyObject, AtIndex index: Int)
+    optional func addressViewController(addressesVC: AddressViewController, didDeactivateAddress address: AnyObject, AtIndex index: Int)
     optional func addressViewController(addressesVC: AddressViewController, didAddAddress address: AnyObject, AtIndex index: Int) -> AnyObject
     optional func addressViewController(addressesVC: AddressViewController, didRemoveAddress address: AnyObject, AtIndex index: Int)
     optional func addressViewController(addressesVC: AddressViewController, didMoveAddress address: AnyObject, fromIndex: Int, toIndex: Int)
@@ -50,6 +43,8 @@ class AddressViewController: UIViewController, UICollectionViewDataSource, UICol
             setAddresses()
         }
     }
+    
+    private var associatedAddress: AnyObject? // тут будет объект типа Address
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -80,8 +75,9 @@ class AddressViewController: UIViewController, UICollectionViewDataSource, UICol
         case 0:
             if current_count < 2 {
             cellFull.deleteButton.enabled = false
-            cellFull.letterControlButton.setBackgroundImage(UIImage(named: "A_inactiveaddress"), forState: .Normal)
-            cellFull.letterControlButton.setBackgroundImage(UIImage(named: "A_activeaddress"), forState: .Selected)
+            
+            cellFull.letterControlButton.setBackgroundImage(UIImage(named: "A_activeaddress"), forState: .Normal)
+            cellFull.activeAddressColorView.backgroundColor = FullCollectionViewCell.lineColor
             return cellFull
             
             } else {
@@ -246,16 +242,19 @@ class AddressViewController: UIViewController, UICollectionViewDataSource, UICol
             switch indexPath.row {
             case 0, 1, 2:
                 sender.selected = true
+                let cell = addressCollectionView.cellForItemAtIndexPath(indexPath) as! FullCollectionViewCell
+                cell.activeAddressColorView.backgroundColor = FullCollectionViewCell.lineColor
             
             default:
                 if sender.state == .Selected {
                     sender.selected = false
                 }
             }
+//            delegate?.addressViewController!(self, didTapAddressMark: associatedAddress!, AtIndex: indexPath.row)
         }
        
         // здесь нужно передать делегату значение
-        delegate?.addressDidTapped!()
+        
         
       //  addressCollectionView.reloadData()
     }
@@ -267,7 +266,7 @@ class AddressViewController: UIViewController, UICollectionViewDataSource, UICol
         
         if let indexPath = touchIndexPath {
             
-            delegate?.addressSearchDidActivated?(indexPath.row)
+//            delegate?.addressViewController!(self, didActivateAddress: associatedAddress!, AtIndex: indexPath.row)
             
             if addressCollectionView.cellForItemAtIndexPath(indexPath) is EmptyCollectionViewCell {
                 
@@ -277,42 +276,31 @@ class AddressViewController: UIViewController, UICollectionViewDataSource, UICol
                 
                 let cellFull = addressCollectionView.cellForItemAtIndexPath(indexPath) as! FullCollectionViewCell
                 
-                let lineColor = UIColor(red: 255/255, green: 192/255, blue: 0/255, alpha: 1)
-                
                 switch indexPath.row {
                 case 0:
-                    cellFull.activeAddressColorView.backgroundColor = lineColor
-//                    cellFull.letterControlButton.selected = true
-//                    cellFull.addressTextLabel.text = "A ADDRESS ACTIVE"
-                    deselectLetterButtons(cellFull, completion: { _ in
+                        deselectLetterButtons(cellFull)
                         cellFull.letterControlButton.selected = true
-                        cellFull.addressTextLabel.text = "A Address Active"
-                    
-                    })
+                        cellFull.addressTextLabel.text = "A SEARCH ACTIVATED"
+                        cellFull.activeAddressColorView.backgroundColor = FullCollectionViewCell.lineColor
+                    // addressCollectionView.reloadItemsAtIndexPaths([indexPath])
                 case 1:
-                    cellFull.activeAddressColorView.backgroundColor = lineColor
-//                    cellFull.letterControlButton.selected = true
-//                    cellFull.addressTextLabel.text = "B ADDRESS ACTIVE"
-                    deselectLetterButtons(cellFull, completion: { _ in
-                        cellFull.letterControlButton.selected = true
-                        cellFull.addressTextLabel.text = "B ADDRESS ACTIVE"
-                    })
+                    deselectLetterButtons(cellFull)
+                            cellFull.letterControlButton.selected = true
+                            cellFull.addressTextLabel.text = "B SEARCH ACTIVATED"
+                            cellFull.activeAddressColorView.backgroundColor = FullCollectionViewCell.lineColor
+                    
                 case 2:
-                    cellFull.activeAddressColorView.backgroundColor = lineColor
-//                    cellFull.letterControlButton.selected = true
-//                    cellFull.addressTextLabel.text = "C ADDRESS ACTIVE"
-                    deselectLetterButtons(cellFull, completion:  { _ in
+                    
+                    deselectLetterButtons(cellFull)
                         cellFull.letterControlButton.selected = true
-                        cellFull.addressTextLabel.text = "C ADDRESS ACTIVE"
-                    })
+                        cellFull.addressTextLabel.text = "C SEARCH ACTIVATED"
+                    cellFull.activeAddressColorView.backgroundColor = FullCollectionViewCell.lineColor
+                    
                 default:
-//                    cellFull.letterControlButton.selected = false
-//                    cellFull.addressTextLabel.text = "ADDRESS INACTIVE"
-                    deselectLetterButtons(cellFull, completion: {
+
+                    deselectLetterButtons(cellFull)
                         cellFull.letterControlButton.selected = false
                         cellFull.addressTextLabel.text = "ADDRESS INACTIVE"
-                    })
-                    
                 }
             }
             
@@ -320,7 +308,7 @@ class AddressViewController: UIViewController, UICollectionViewDataSource, UICol
         }
     }
     
-    func deselectLetterButtons(fullCell: FullCollectionViewCell, completion: () -> ()) {
+    func deselectLetterButtons(fullCell: FullCollectionViewCell) {
         let visibleCells = addressCollectionView.visibleCells()
         for cell in visibleCells {
             if cell is FullCollectionViewCell {
