@@ -17,6 +17,17 @@ import MapKit
     optional func addressDidMoved(from index: Int, toIndexPath: Int)
 }
 
+@objc protocol AddessViewDelegateAyham {
+    
+    //Пока AnyObject а на самом деле должно быть объект типа Address
+    optional func addressViewController(addressesVC: AddressViewController, didTabAddress address: AnyObject, AtIndex index: Int)
+    optional func addressViewController(addressesVC: AddressViewController, didActiveAddress address: AnyObject, AtIndex index: Int)
+    optional func addressViewController(addressesVC: AddressViewController, didDeactiveAddress address: AnyObject, AtIndex index: Int)
+    optional func addressViewController(addressesVC: AddressViewController, didAddAddress address: AnyObject, AtIndex index: Int) -> AnyObject
+    optional func addressViewController(addressesVC: AddressViewController, didRemoveAddress address: AnyObject, AtIndex index: Int)
+    optional func addressViewController(addressesVC: AddressViewController, didMoveAddress address: AnyObject, fromIndex: Int, toIndex: Int)
+}
+
 
 class AddressViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout  {
     
