@@ -11,9 +11,10 @@ import MapKit
 
 @objc protocol AddressViewDelegate {
     
-        optional var address: String { get set } // get - делегат берет адрес у карты, set - делегат назначает адрес для карты сам
-        optional var addressIsProvidedByMap: Bool { get } // опции 1. true - адрес пришел с карты 2. false - адрес введен иным образом
-        func addressDidTapped() // пользователь нажал ячейку с адресом на делегате 
+        optional func addressDidTapped() // пользователь нажал ячейку с адресом - перевел надувной шарик в активное состояние
+        optional func addressSearchDidActivated(indexPath: NSIndexPath) // нажатие средней кнопки / label активирует алгоритм выбора адреса (поиск, favorites, адрес из списка, ввод с клавиатуры)
+        optional func addressDidDeleted(indexPath: NSIndexPath)// адресная ячейка удалена из AddressView
+        optional func addressDidMoved(from indexPath: NSIndexPath, toIndexPath: NSIndexPath)
 }
 
 
@@ -29,6 +30,15 @@ class AddressViewController: UIViewController, UICollectionViewDataSource, UICol
     var delegate: AddressViewDelegate?
     private var current_count = 0
     private var previous_count = 0
+    private var addresses: [AnyObject] {
+        get {
+            return self.addresses
+        }
+        
+        set {
+            setAddresses()
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,7 +49,11 @@ class AddressViewController: UIViewController, UICollectionViewDataSource, UICol
         let moveGestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(moveCollectionViewCells(_:)))
         addressCollectionView.addGestureRecognizer(moveGestureRecognizer)
         
-        addressCollectionView.translatesAutoresizingMaskIntoConstraints = true
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(searchAddress(_:)))
+        tapGestureRecognizer.numberOfTapsRequired = 1
+        addressCollectionView.addGestureRecognizer(tapGestureRecognizer)
+        
+       // addressCollectionView.translatesAutoresizingMaskIntoConstraints = true
         
         current_count = dataModel.dataModel.count
     }
@@ -54,6 +68,7 @@ class AddressViewController: UIViewController, UICollectionViewDataSource, UICol
         case 0:
             if current_count < 2 {
             cellFull.deleteButton.enabled = false
+            cellFull.letterControlButton.setBackgroundImage(UIImage(named: "A_inactiveaddress"), forState: .Normal)
             return cellFull
             
             } else {
@@ -61,12 +76,14 @@ class AddressViewController: UIViewController, UICollectionViewDataSource, UICol
             }
         case 1:
             if current_count == 2 {
+            cellFull.letterControlButton.setBackgroundImage(UIImage(named: "B_inactiveaddress"), forState: .Normal)
                 return cellFull
             } else {
             return cellEmpty
             }
         case 2:
             if current_count == 3 {
+            cellFull.letterControlButton.setBackgroundImage(UIImage(named: "C_inactiveaddress"), forState: .Normal)
                 return cellFull
             } else {
                 return cellEmpty
@@ -83,11 +100,7 @@ class AddressViewController: UIViewController, UICollectionViewDataSource, UICol
         return size
     }
     
-    // открывает поиск адреса - условный SearchViewController, но вообще этот метод нужно переместить, а оставить только функционал ячейки CollectionView: нажали на кнопку SEARCH - ищем адрес, button.tag = indexPath.item
-    func searchAddress () {
-        
-    }
-    
+    //MARK: Adding cells
     // добавляет ячейку Full для адреса
     @IBAction func addCellAtIndexPath (sender: UIButton) {
         
@@ -109,7 +122,7 @@ class AddressViewController: UIViewController, UICollectionViewDataSource, UICol
                 
                 self.addressCollectionView.insertItemsAtIndexPaths([indexPath!])
                 
-                // completion почему-то не работает, надо разбираться, почему
+                // FIXME: completion почему-то не работает, надо разбираться, почему
                 }, completion: { _ in
                     
                     let firstCellIndexPath = self.addressCollectionView.indexPathsForVisibleItems().first
@@ -128,8 +141,11 @@ class AddressViewController: UIViewController, UICollectionViewDataSource, UICol
             let indexPath = touchIndexPath
             addressCollectionView.reloadItemsAtIndexPaths([indexPath!])
         }
+       // addressCollectionView.reloadData()
     }
     
+    //MARK: Deleting cells
+    // удаляет ячейку для адреса
     @IBAction func deleteCellAtIndexPath(sender: UIButton) {
         let touchPoint: CGPoint = sender.convertPoint(CGPointZero, toView: addressCollectionView)
         let touchIndexPath = addressCollectionView.indexPathForItemAtPoint(touchPoint)
@@ -166,8 +182,11 @@ class AddressViewController: UIViewController, UICollectionViewDataSource, UICol
             }
             
         }
+       // addressCollectionView.reloadData()
     }
     
+    //MARK: Moving cells
+    // перемещает ячейки с адресами
     func moveCollectionViewCells(gestureRecognizer: UILongPressGestureRecognizer) {
         
         switch gestureRecognizer.state {
@@ -187,22 +206,80 @@ class AddressViewController: UIViewController, UICollectionViewDataSource, UICol
         
     }
     
-    // метод не работает - не вызывается, потому что должен следовать за вызовом collectionView (shouldShowMenuForItemAt: ), а мы не вызываем меню редактирования
-    
     func collectionView(collectionView: UICollectionView, moveItemAtIndexPath sourceIndexPath: NSIndexPath, toIndexPath destinationIndexPath: NSIndexPath) {
         
-        let firstElement = dataModel.dataModel.removeAtIndex(sourceIndexPath.row)
-        dataModel.dataModel.insert(firstElement, atIndex: destinationIndexPath.row)
+        if dataModel.dataModel.count > 1 {
+            
+            let firstElement = dataModel.dataModel.removeAtIndex(sourceIndexPath.row)
+            dataModel.dataModel.insert(firstElement, atIndex: destinationIndexPath.row)
+            
+        }
+        
+      //  addressCollectionView.reloadData()
     }
+    
     
     
     @IBAction func addressFieldMakeActive(sender: UIButton) {
-        let title = "Default placeholder address"
-        sender.setTitle(title, forState: .Normal)
         
+        let touchPoint = sender.convertPoint(CGPointZero, toView: addressCollectionView)
+        let touchIndexPath = addressCollectionView.indexPathForItemAtPoint(touchPoint)
+        
+        if let indexPath = touchIndexPath {
+        
+            switch indexPath.row {
+            case 0:
+                
+                    sender.selected = true
+                    sender.setBackgroundImage(UIImage(named: "A_activeaddress"), forState: .Selected)
+                
+            case 1:
+                    sender.selected = true
+                    sender.setBackgroundImage(UIImage(named: "B_activeaddress"), forState: .Selected)
+                
+            case 2:
+                
+                    sender.selected = true
+                    sender.setBackgroundImage(UIImage(named: "C_activeaddress"), forState: .Selected)
+                
+            default:
+                if sender.state == .Selected {
+                    sender.selected = false
+                }
+            }
+        }
+       
         // здесь нужно передать делегату значение
-        delegate?.addressDidTapped()
+        delegate?.addressDidTapped!()
+        
+      //  addressCollectionView.reloadData()
     }
+    
+    func searchAddress (sender: UITapGestureRecognizer) {
+        
+        let touchPoint = sender.locationInView(addressCollectionView)
+        let touchIndexPath = addressCollectionView.indexPathForItemAtPoint(touchPoint)
+        
+        print("Touch at indexPath: \(touchIndexPath)")
+        
+        if let indexPath = touchIndexPath {
+            let cell = addressCollectionView.cellForItemAtIndexPath(indexPath) as! FullCollectionViewCell
+            
+            
+            switch indexPath.row {
+            case 0:
+                cell.addressTextLabel.text = "A ADDRESS ACTIVE"
+            case 1:
+                cell.addressTextLabel.text = "B ADDRESS ACTIVE"
+            case 2:
+                cell.addressTextLabel.text = "C ADDRESS ACTIVE"
+            default:
+                cell.addressTextLabel.text = "ADDRESS INACTIVE"
+            }
+                        }
+        
+        }
+    
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
@@ -223,8 +300,26 @@ class AddressViewController: UIViewController, UICollectionViewDataSource, UICol
         }
     }
     
-    private func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWithGestureRecognizer otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+    func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWithGestureRecognizer otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         return true
+    }
+    
+    //MARK: Public methods 
+    
+    func setAddresses() {
+        
+    }
+    
+    func setAddressAtIndex() {
+        
+    }
+    
+    func activateAddress() {
+        
+    }
+    
+    func deActivateAddress() {
+        
     }
 
 }
