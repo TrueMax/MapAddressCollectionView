@@ -75,11 +75,13 @@ class AddressViewController: UIViewController, UICollectionViewDataSource, UICol
         
         let cellEmpty = collectionView.dequeueReusableCellWithReuseIdentifier("EmptyCollectionViewCell", forIndexPath: indexPath) as! EmptyCollectionViewCell
         
+        
         switch (indexPath.row) {
         case 0:
             if current_count < 2 {
             cellFull.deleteButton.enabled = false
             cellFull.letterControlButton.setBackgroundImage(UIImage(named: "A_inactiveaddress"), forState: .Normal)
+            cellFull.letterControlButton.setBackgroundImage(UIImage(named: "A_activeaddress"), forState: .Selected)
             return cellFull
             
             } else {
@@ -88,6 +90,7 @@ class AddressViewController: UIViewController, UICollectionViewDataSource, UICol
         case 1:
             if current_count == 2 {
             cellFull.letterControlButton.setBackgroundImage(UIImage(named: "B_inactiveaddress"), forState: .Normal)
+            cellFull.letterControlButton.setBackgroundImage(UIImage(named: "B_activeaddress"), forState: .Selected)
                 return cellFull
             } else {
             return cellEmpty
@@ -95,6 +98,7 @@ class AddressViewController: UIViewController, UICollectionViewDataSource, UICol
         case 2:
             if current_count == 3 {
             cellFull.letterControlButton.setBackgroundImage(UIImage(named: "C_inactiveaddress"), forState: .Normal)
+            cellFull.letterControlButton.setBackgroundImage(UIImage(named: "C_activeaddress"), forState: .Selected)
                 return cellFull
             } else {
                 return cellEmpty
@@ -237,22 +241,12 @@ class AddressViewController: UIViewController, UICollectionViewDataSource, UICol
         let touchIndexPath = addressCollectionView.indexPathForItemAtPoint(touchPoint)
         
         if let indexPath = touchIndexPath {
+            sender.tag = indexPath.item
         
             switch indexPath.row {
-            case 0:
-                
-                    sender.selected = true
-                    sender.setBackgroundImage(UIImage(named: "A_activeaddress"), forState: .Selected)
-                
-            case 1:
-                    sender.selected = true
-                    sender.setBackgroundImage(UIImage(named: "B_activeaddress"), forState: .Selected)
-                
-            case 2:
-                
-                    sender.selected = true
-                    sender.setBackgroundImage(UIImage(named: "C_activeaddress"), forState: .Selected)
-                
+            case 0, 1, 2:
+                sender.selected = true
+            
             default:
                 if sender.state == .Selected {
                     sender.selected = false
@@ -271,26 +265,42 @@ class AddressViewController: UIViewController, UICollectionViewDataSource, UICol
         let touchPoint = sender.locationInView(addressCollectionView)
         let touchIndexPath = addressCollectionView.indexPathForItemAtPoint(touchPoint)
         
-        print("Touch at indexPath: \(touchIndexPath)")
-        
         if let indexPath = touchIndexPath {
-            let cell = addressCollectionView.cellForItemAtIndexPath(indexPath) as! FullCollectionViewCell
             
+            delegate?.addressSearchDidActivated?(indexPath)
             
-            switch indexPath.row {
-            case 0:
-                cell.addressTextLabel.text = "A ADDRESS ACTIVE"
-            case 1:
-                cell.addressTextLabel.text = "B ADDRESS ACTIVE"
-            case 2:
-                cell.addressTextLabel.text = "C ADDRESS ACTIVE"
-            default:
-                cell.addressTextLabel.text = "ADDRESS INACTIVE"
+            if addressCollectionView.cellForItemAtIndexPath(indexPath) is EmptyCollectionViewCell {
+                
+                sender.cancelsTouchesInView = true
+            
+            } else {
+                
+                let cellFull = addressCollectionView.cellForItemAtIndexPath(indexPath) as! FullCollectionViewCell
+                
+                let lineColor = UIColor(red: 255/255, green: 192/255, blue: 0/255, alpha: 1)
+                
+                switch indexPath.row {
+                case 0:
+                    cellFull.activeAddressColorView.backgroundColor = lineColor
+                    cellFull.letterControlButton.selected = true
+                    cellFull.addressTextLabel.text = "A ADDRESS ACTIVE"
+                case 1:
+                    cellFull.activeAddressColorView.backgroundColor = lineColor
+                    cellFull.letterControlButton.selected = true
+                    cellFull.addressTextLabel.text = "B ADDRESS ACTIVE"
+                case 2:
+                    cellFull.activeAddressColorView.backgroundColor = lineColor
+                    cellFull.letterControlButton.selected = true
+                    cellFull.addressTextLabel.text = "C ADDRESS ACTIVE"
+                default:
+                    cellFull.letterControlButton.selected = false
+                    cellFull.addressTextLabel.text = "ADDRESS INACTIVE"
+                }
             }
-                        }
-        
+            
+            
         }
-    
+    }
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         

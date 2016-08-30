@@ -36,10 +36,6 @@ class GoogleMapViewController: UIViewController, AddressViewDelegate {
         }
     }
     
-    func addressDidTapped() {
-        centerMapOnLocationWithReceivedAddress()
-    }
-    
     var centerCoordinate: CLLocationCoordinate2D?
 
     override func viewDidLoad() {
@@ -95,4 +91,16 @@ class GoogleMapViewController: UIViewController, AddressViewDelegate {
     }
     
 
+}
+
+// MARK: AddressViewDelegate methods
+extension GoogleMapViewController {
+    
+    func addressDidTapped() {
+        centerMapOnLocationWithReceivedAddress()
+    }
+    
+    func addressSearchDidActivated(indexPath: NSIndexPath) {
+        // здесь активируется поиск адреса  после нажатия ячейки с адресом в AddressViewController
+    }
 }
