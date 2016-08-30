@@ -11,10 +11,10 @@ import MapKit
 
 @objc protocol AddressViewDelegate {
     
-        optional func addressDidTapped() // пользователь нажал ячейку с адресом - перевел надувной шарик в активное состояние
-        optional func addressSearchDidActivated(indexPath: NSIndexPath) // нажатие средней кнопки / label активирует алгоритм выбора адреса (поиск, favorites, адрес из списка, ввод с клавиатуры)
-        optional func addressDidDeleted(indexPath: NSIndexPath)// адресная ячейка удалена из AddressView
-        optional func addressDidMoved(from indexPath: NSIndexPath, toIndexPath: NSIndexPath)
+    optional func addressDidTapped() // пользователь нажал ячейку с адресом - перевел надувной шарик в активное состояние
+    optional func addressSearchDidActivated(index: Int) // нажатие средней кнопки / label активирует алгоритм выбора адреса (поиск, favorites, адрес из списка, ввод с клавиатуры)
+    optional func addressDidDeleted(index: Int)// адресная ячейка удалена из AddressView
+    optional func addressDidMoved(from index: Int, toIndexPath: Int)
 }
 
 
@@ -256,7 +256,7 @@ class AddressViewController: UIViewController, UICollectionViewDataSource, UICol
         
         if let indexPath = touchIndexPath {
             
-            delegate?.addressSearchDidActivated?(indexPath)
+            delegate?.addressSearchDidActivated?(indexPath.row)
             
             if addressCollectionView.cellForItemAtIndexPath(indexPath) is EmptyCollectionViewCell {
                 
@@ -271,23 +271,51 @@ class AddressViewController: UIViewController, UICollectionViewDataSource, UICol
                 switch indexPath.row {
                 case 0:
                     cellFull.activeAddressColorView.backgroundColor = lineColor
-                    cellFull.letterControlButton.selected = true
-                    cellFull.addressTextLabel.text = "A ADDRESS ACTIVE"
+//                    cellFull.letterControlButton.selected = true
+//                    cellFull.addressTextLabel.text = "A ADDRESS ACTIVE"
+                    deselectLetterButtons(cellFull, completion: { _ in
+                        cellFull.letterControlButton.selected = true
+                        cellFull.addressTextLabel.text = "A Address Active"
+                    
+                    })
                 case 1:
                     cellFull.activeAddressColorView.backgroundColor = lineColor
-                    cellFull.letterControlButton.selected = true
-                    cellFull.addressTextLabel.text = "B ADDRESS ACTIVE"
+//                    cellFull.letterControlButton.selected = true
+//                    cellFull.addressTextLabel.text = "B ADDRESS ACTIVE"
+                    deselectLetterButtons(cellFull, completion: { _ in
+                        cellFull.letterControlButton.selected = true
+                        cellFull.addressTextLabel.text = "B ADDRESS ACTIVE"
+                    })
                 case 2:
                     cellFull.activeAddressColorView.backgroundColor = lineColor
-                    cellFull.letterControlButton.selected = true
-                    cellFull.addressTextLabel.text = "C ADDRESS ACTIVE"
+//                    cellFull.letterControlButton.selected = true
+//                    cellFull.addressTextLabel.text = "C ADDRESS ACTIVE"
+                    deselectLetterButtons(cellFull, completion:  { _ in
+                        cellFull.letterControlButton.selected = true
+                        cellFull.addressTextLabel.text = "C ADDRESS ACTIVE"
+                    })
                 default:
-                    cellFull.letterControlButton.selected = false
-                    cellFull.addressTextLabel.text = "ADDRESS INACTIVE"
+//                    cellFull.letterControlButton.selected = false
+//                    cellFull.addressTextLabel.text = "ADDRESS INACTIVE"
+                    deselectLetterButtons(cellFull, completion: {
+                        cellFull.letterControlButton.selected = false
+                        cellFull.addressTextLabel.text = "ADDRESS INACTIVE"
+                    })
+                    
                 }
             }
             
             
+        }
+    }
+    
+    func deselectLetterButtons(fullCell: FullCollectionViewCell, completion: () -> ()) {
+        let visibleCells = addressCollectionView.visibleCells()
+        for cell in visibleCells {
+            if cell is FullCollectionViewCell {
+                fullCell.letterControlButton.selected = false
+                fullCell.activeAddressColorView.backgroundColor = .clearColor()
+            }
         }
     }
     

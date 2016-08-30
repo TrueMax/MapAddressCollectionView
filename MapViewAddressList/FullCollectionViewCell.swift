@@ -10,15 +10,7 @@ import UIKit
 
 class FullCollectionViewCell: UICollectionViewCell {
     
-    @IBOutlet weak var letterControlButton: UIButton! {
-        didSet {
-            if letterControlButton.selected == true {
-                activeAddressColorView.backgroundColor = UIColor.yellowColor()
-            } else {
-                activeAddressColorView.backgroundColor = UIColor.clearColor()
-            }
-        }
-    }
+    @IBOutlet weak var letterControlButton: UIButton!
     @IBOutlet weak var addressTextLabel: UILabel!
     @IBOutlet weak var deleteButton: UIButton!
     @IBOutlet weak var activeAddressColorView: UIView!

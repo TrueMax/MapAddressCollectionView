@@ -100,7 +100,7 @@ extension GoogleMapViewController {
         centerMapOnLocationWithReceivedAddress()
     }
     
-    func addressSearchDidActivated(indexPath: NSIndexPath) {
+    func addressSearchDidActivated(index: Int) {
         // здесь активируется поиск адреса  после нажатия ячейки с адресом в AddressViewController
     }
 }
