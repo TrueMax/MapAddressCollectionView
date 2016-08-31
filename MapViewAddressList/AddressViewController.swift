@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import MapKit
 
 
 @objc protocol AddressViewDelegate {
@@ -15,7 +14,6 @@ import MapKit
     //Пока AnyObject а на самом деле должно быть объект типа Address
     optional func addressViewController(addressesVC: AddressViewController, didTapAddressMark address: AnyObject, AtIndex index: Int)
     optional func addressViewController(addressesVC: AddressViewController, didActivateAddress address: AnyObject, AtIndex index: Int)
-    optional func addressViewController(addressesVC: AddressViewController, didDeactivateAddress address: AnyObject, AtIndex index: Int)
     optional func addressViewController(addressesVC: AddressViewController, didAddAddress address: AnyObject, AtIndex index: Int) -> AnyObject
     optional func addressViewController(addressesVC: AddressViewController, didRemoveAddress address: AnyObject, AtIndex index: Int)
     optional func addressViewController(addressesVC: AddressViewController, didMoveAddress address: AnyObject, fromIndex: Int, toIndex: Int)
@@ -29,11 +27,11 @@ class AddressViewController: UIViewController, UICollectionViewDataSource, UICol
 //    }
     
     @IBOutlet weak var addressCollectionView: UICollectionView!
+    @IBOutlet weak var addressCellAddingButton: UIButton!
     
     private var dataModel = DataModel() // источник данных для AddressViewController
     var delegate: AddressViewDelegate?
-    private var current_count = 0
-    private var previous_count = 0
+    
     private var addresses: [AnyObject] {
         get {
             return self.addresses
@@ -61,99 +59,89 @@ class AddressViewController: UIViewController, UICollectionViewDataSource, UICol
         
        // addressCollectionView.translatesAutoresizingMaskIntoConstraints = true
         
-        current_count = dataModel.dataModel.count
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         
-        let cellFull = collectionView.dequeueReusableCellWithReuseIdentifier("FullCollectionViewCell", forIndexPath: indexPath) as! FullCollectionViewCell
+        let addressCell = collectionView.dequeueReusableCellWithReuseIdentifier("FullCollectionViewCell", forIndexPath: indexPath) as! FullCollectionViewCell
         
-        let cellEmpty = collectionView.dequeueReusableCellWithReuseIdentifier("EmptyCollectionViewCell", forIndexPath: indexPath) as! EmptyCollectionViewCell
+        addressCell.indexPathRow = indexPath.row
+        print("ADDRESS_VIEW_CONTROLLER SENDS AN INDEXPATHROW: \(indexPath.row)")
+        addressCell.selected = false
         
-        
-        switch (indexPath.row) {
-        case 0:
-            if current_count < 2 {
-            cellFull.deleteButton.enabled = false
-            
-            cellFull.letterControlButton.setBackgroundImage(UIImage(named: "A_activeaddress"), forState: .Normal)
-            cellFull.activeAddressColorView.backgroundColor = FullCollectionViewCell.lineColor
-            return cellFull
-            
-            } else {
-                return cellFull
-            }
-        case 1:
-            if current_count == 2 {
-            cellFull.letterControlButton.setBackgroundImage(UIImage(named: "B_inactiveaddress"), forState: .Normal)
-            cellFull.letterControlButton.setBackgroundImage(UIImage(named: "B_activeaddress"), forState: .Selected)
-                return cellFull
-            } else {
-            return cellEmpty
-            }
-        case 2:
-            if current_count == 3 {
-            cellFull.letterControlButton.setBackgroundImage(UIImage(named: "C_inactiveaddress"), forState: .Normal)
-            cellFull.letterControlButton.setBackgroundImage(UIImage(named: "C_activeaddress"), forState: .Selected)
-                return cellFull
-            } else {
-                return cellEmpty
-            }
-        default:
-            return cellEmpty
+        return addressCell
         }
-    }
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
         let cellWidth = collectionView.frame.size.width - 20
-        let cellHeight = CGFloat(40)
+        let cellHeight = CGFloat(50)
         let size = CGSizeMake(cellWidth, cellHeight)
         return size
     }
     
     //MARK: Adding cells
-    // добавляет ячейку Full для адреса
+    // добавляет ячейку для адреса с кнопки
     @IBAction func addCellAtIndexPath (sender: UIButton) {
         
-        dataModel.updateDataModel("Address")
-        current_count = current_count + 1
-        
-        let touchPoint: CGPoint = sender.convertPoint(CGPointZero, toView: addressCollectionView)
-        let touchIndexPath = addressCollectionView.indexPathForItemAtPoint(touchPoint)
-        print("TouchIndexPath: \(touchIndexPath)")
-        
-        if current_count < dataModel.addressLimit {
+        if addressCollectionView.visibleCells().count == 0 {
             
-            print("PREVIOUS COUNT: \(previous_count), CURRENT COUNT: \(current_count)")
+            let initialIndexPath = NSIndexPath(forItem: 0, inSection: 0)
             
-            let indexPath = touchIndexPath
-            previous_count = previous_count + 1
-            print("PREVIOUS COUNT: \(previous_count), CURRENT COUNT: \(current_count)")
+            dataModel.updateDataModel(initialIndexPath, element: "Address")
+            
+            UIView.animateWithDuration(1.0, delay: 0.7, usingSpringWithDamping: 0.9, initialSpringVelocity: 0.0, options: .CurveEaseInOut, animations: { () -> Void in
+                
+                self.addressCollectionView.insertItemsAtIndexPaths([initialIndexPath])
+                
+                }, completion: { _ in
+                    let cell = self.addressCollectionView.cellForItemAtIndexPath(initialIndexPath) as! FullCollectionViewCell
+                        cell.indexPathRow = initialIndexPath.row
+                    
+            })
+        
+        } else {
+        
+            if let indexPath = addressCollectionView.indexPathsForVisibleItems().last {
+                
+                dataModel.updateDataModel(indexPath, element: "Address")
+                
+                
+                if dataModel.dataModel.count < dataModel.addressLimit {
+                    
+                    print("DATAMODEL COUNT: \(dataModel.dataModel.count)")
+                    
+                    
+                    UIView.animateWithDuration(1.0, delay: 0.4, usingSpringWithDamping: 0.65, initialSpringVelocity: 0.0, options: .CurveEaseInOut, animations: { () -> Void in
+                        
+                        self.addressCollectionView.insertItemsAtIndexPaths([indexPath])
+                        
+                        
+                        }, completion: { _ in
+                            let cell = self.addressCollectionView.cellForItemAtIndexPath(indexPath) as! FullCollectionViewCell
+                            cell.indexPathRow = indexPath.row
+                    
+                    })
+                    
+        } else if dataModel.dataModel.count == dataModel.addressLimit {
             UIView.animateWithDuration(1.0, delay: 0.4, usingSpringWithDamping: 0.65, initialSpringVelocity: 0.0, options: .CurveEaseInOut, animations: { () -> Void in
                 
-                self.addressCollectionView.insertItemsAtIndexPaths([indexPath!])
+                self.addressCollectionView.insertItemsAtIndexPaths([indexPath])
                 
-                // FIXME: completion почему-то не работает, надо разбираться, почему
+                
                 }, completion: { _ in
+                    let cell = self.addressCollectionView.cellForItemAtIndexPath(indexPath) as! FullCollectionViewCell
+                    cell.indexPathRow = indexPath.row
                     
-                    let firstCellIndexPath = self.addressCollectionView.indexPathsForVisibleItems().first
-                    if let _indexPath = firstCellIndexPath {
-                        
-                        let cell = self.addressCollectionView.cellForItemAtIndexPath(_indexPath) as! FullCollectionViewCell
-                        cell.deleteButton.enabled = true
-                        
-                        
-                    }
             })
-                    
-        } else if current_count == dataModel.addressLimit {
-            previous_count = previous_count + 1
-            print("PREVIOUS COUNT: \(previous_count), CURRENT COUNT: \(current_count)")
-            let indexPath = touchIndexPath
-            addressCollectionView.reloadItemsAtIndexPaths([indexPath!])
+            addressCellAddingButton.hidden = true
+                }
+            }
         }
-       // addressCollectionView.reloadData()
-    }
+   }
+    
+        
+//        delegate?.addressViewController!(self, didAddAddress: associatedAddress!, AtIndex: touchIndexPath!.row)
+    
     
     //MARK: Deleting cells
     // удаляет ячейку для адреса
@@ -164,40 +152,29 @@ class AddressViewController: UIViewController, UICollectionViewDataSource, UICol
         
         
         if let indexPath = touchIndexPath {
-            if current_count == dataModel.addressLimit {
-                
-                previous_count = current_count
-                current_count = current_count - 1
-                
-                let layout = AddressCollectionViewLayout()
-                layout.disappearingItemsIndexPaths = [indexPath]
-                dataModel.dataModel.removeAtIndex(indexPath.row)
-                
-                addressCollectionView.reloadItemsAtIndexPaths([indexPath])
-                print("PREVIOUS COUNT: \(previous_count), CURRENT COUNT: \(current_count)")
-                
-                 } else {
-                
-                previous_count = current_count
-                current_count = current_count - 1
-                
-                let layout = AddressCollectionViewLayout()
-                layout.disappearingItemsIndexPaths = [indexPath]
-                dataModel.dataModel.removeAtIndex(indexPath.row)
-                
-                UIView.animateWithDuration(0.65, delay: 0.0, options: .CurveEaseInOut, animations: { () -> Void in
-                    self.addressCollectionView.deleteItemsAtIndexPaths([indexPath])
-                }) { (finished: Bool) -> Void in
-                    layout.disappearingItemsIndexPaths = nil
-                }
+            let layout = AddressCollectionViewLayout()
+            layout.disappearingItemsIndexPaths = [indexPath]
+            
+            dataModel.dataModel.removeAtIndex(indexPath.row)
+            UIView.animateWithDuration(0.65, delay: 0.0, options: .CurveEaseInOut, animations: { () -> Void in
+                self.addressCollectionView.deleteItemsAtIndexPaths([indexPath])
+            }) { (finished: Bool) -> Void in
+                layout.disappearingItemsIndexPaths = nil
             }
             
+            
         }
-       // addressCollectionView.reloadData()
+        addressCellAddingButton.hidden = false
     }
+    
+    
+    
+//       delegate?.addressViewController!(self, didRemoveAddress: associatedAddress!, AtIndex: touchIndexPath!.row)
+    
     
     //MARK: Moving cells
     // перемещает ячейки с адресами
+        
     func moveCollectionViewCells(gestureRecognizer: UILongPressGestureRecognizer) {
         
         switch gestureRecognizer.state {
@@ -225,9 +202,9 @@ class AddressViewController: UIViewController, UICollectionViewDataSource, UICol
             dataModel.dataModel.insert(firstElement, atIndex: destinationIndexPath.row)
             
         }
-        
-      //  addressCollectionView.reloadData()
-    }
+//      func addressViewController(addressesVC: AddressViewController, didMoveAddress address: AnyObject, fromIndex: Int, toIndex: Int)
+        }
+    
     
     
     
@@ -237,18 +214,15 @@ class AddressViewController: UIViewController, UICollectionViewDataSource, UICol
         let touchIndexPath = addressCollectionView.indexPathForItemAtPoint(touchPoint)
         
         if let indexPath = touchIndexPath {
-            sender.tag = indexPath.item
+            let cell = addressCollectionView.cellForItemAtIndexPath(indexPath) as! FullCollectionViewCell
         
             switch indexPath.row {
             case 0, 1, 2:
-                sender.selected = true
-                let cell = addressCollectionView.cellForItemAtIndexPath(indexPath) as! FullCollectionViewCell
-                cell.activeAddressColorView.backgroundColor = FullCollectionViewCell.lineColor
-            
+                deselectLetterButtons(cell)
+                cell.selected = true
+                
             default:
-                if sender.state == .Selected {
-                    sender.selected = false
-                }
+                cell.selected = false
             }
 //            delegate?.addressViewController!(self, didTapAddressMark: associatedAddress!, AtIndex: indexPath.row)
         }
@@ -266,42 +240,29 @@ class AddressViewController: UIViewController, UICollectionViewDataSource, UICol
         
         if let indexPath = touchIndexPath {
             
-//            delegate?.addressViewController!(self, didActivateAddress: associatedAddress!, AtIndex: indexPath.row)
+            //            delegate?.addressViewController!(self, didActivateAddress: associatedAddress!, AtIndex: indexPath.row)
             
-            if addressCollectionView.cellForItemAtIndexPath(indexPath) is EmptyCollectionViewCell {
-                
-                sender.cancelsTouchesInView = true
-            
-            } else {
+           
                 
                 let cellFull = addressCollectionView.cellForItemAtIndexPath(indexPath) as! FullCollectionViewCell
-                
+                cellFull.indexPathRow = indexPath.row
+            
                 switch indexPath.row {
                 case 0:
-                        deselectLetterButtons(cellFull)
-                        cellFull.letterControlButton.selected = true
-                        cellFull.addressTextLabel.text = "A SEARCH ACTIVATED"
-                        cellFull.activeAddressColorView.backgroundColor = FullCollectionViewCell.lineColor
-                    // addressCollectionView.reloadItemsAtIndexPaths([indexPath])
+                    deselectLetterButtons(cellFull)
+                    cellFull.selected = true
+                    
                 case 1:
                     deselectLetterButtons(cellFull)
-                            cellFull.letterControlButton.selected = true
-                            cellFull.addressTextLabel.text = "B SEARCH ACTIVATED"
-                            cellFull.activeAddressColorView.backgroundColor = FullCollectionViewCell.lineColor
+                    cellFull.selected = true
                     
                 case 2:
-                    
                     deselectLetterButtons(cellFull)
-                        cellFull.letterControlButton.selected = true
-                        cellFull.addressTextLabel.text = "C SEARCH ACTIVATED"
-                    cellFull.activeAddressColorView.backgroundColor = FullCollectionViewCell.lineColor
-                    
+                    cellFull.selected = true
                 default:
-
                     deselectLetterButtons(cellFull)
-                        cellFull.letterControlButton.selected = false
-                        cellFull.addressTextLabel.text = "ADDRESS INACTIVE"
-                }
+                    cellFull.selected = false
+                
             }
             
             
@@ -312,29 +273,15 @@ class AddressViewController: UIViewController, UICollectionViewDataSource, UICol
         let visibleCells = addressCollectionView.visibleCells()
         for cell in visibleCells {
             if cell is FullCollectionViewCell {
-                fullCell.letterControlButton.selected = false
-                fullCell.activeAddressColorView.backgroundColor = .clearColor()
+                cell.selected = false
             }
         }
     }
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
-        switch (current_count, previous_count) {
-        case (1, 0):
-            return 2
-        case (2, 0):
-            return dataModel.addressLimit
-        case (2, 1):
-            return dataModel.addressLimit
-        case (3, 2):
-            return dataModel.addressLimit
-        case (2, 3), (3, 4):
-            return dataModel.addressLimit
-        case (1, 2):
-            return 2
-        default: return dataModel.addressLimit
-        }
+            return dataModel.dataModel.count
+    
     }
     
     func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWithGestureRecognizer otherGestureRecognizer: UIGestureRecognizer) -> Bool {

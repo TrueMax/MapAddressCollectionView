@@ -11,7 +11,7 @@ import Foundation
 struct DataModel {
     
     var dataModel: [String] = ["One Address"]
-    var index: Int?
+    
     
     var addressLimit: Int {
         get {
@@ -19,16 +19,13 @@ struct DataModel {
         }
     }
     
-    mutating func assignIndex(parameter: NSIndexPath) -> Int {
-        index = parameter.row
-        return index!
-    }
     
-    mutating func updateDataModel(element: String) -> [String] {
+    
+    mutating func updateDataModel(indexPath: NSIndexPath, element: String) -> [String] {
         
-        index = 1
+       let index = indexPath.row
         
-            dataModel.insert(element, atIndex: index!)
+            dataModel.insert(element, atIndex: index)
     
         return dataModel
     }

@@ -96,11 +96,9 @@ class GoogleMapViewController: UIViewController, AddressViewDelegate {
 // MARK: AddressViewDelegate methods
 extension GoogleMapViewController {
     
-    func addressDidTapped() {
+    func addressViewController(addressesVC: AddressViewController, didActivateAddress address: AnyObject, AtIndex index: Int) {
         centerMapOnLocationWithReceivedAddress()
     }
     
-    func addressSearchDidActivated(index: Int) {
-        // здесь активируется поиск адреса  после нажатия ячейки с адресом в AddressViewController
-    }
+    
 }
