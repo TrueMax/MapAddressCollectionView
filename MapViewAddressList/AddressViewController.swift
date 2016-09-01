@@ -87,7 +87,7 @@ class AddressViewController: UIViewController, UICollectionViewDataSource, UICol
             
             let initialIndexPath = NSIndexPath(forItem: 0, inSection: 0)
             
-            dataModel.updateDataModel(initialIndexPath, element: "Address")
+            dataModel.updateDataSource(initialIndexPath.row, inSection: initialIndexPath.section)
             
             UIView.animateWithDuration(1.0, delay: 0.7, usingSpringWithDamping: 0.9, initialSpringVelocity: 0.0, options: .CurveEaseInOut, animations: { () -> Void in
                 
@@ -95,16 +95,19 @@ class AddressViewController: UIViewController, UICollectionViewDataSource, UICol
                 
                 }, completion: { _ in
                     let cell = self.addressCollectionView.cellForItemAtIndexPath(initialIndexPath) as! FullCollectionViewCell
-                        cell.indexPathRow = initialIndexPath.row
+                    cell.indexPathRow = initialIndexPath.row
                     
             })
-        
+            
         } else {
-        
+            
             if let indexPath = addressCollectionView.indexPathsForVisibleItems().last {
                 
-                dataModel.updateDataModel(indexPath, element: "Address")
+                print("DATAMODEL.COUNT: \(dataModel.dataModel.count) \n OLD INDEXPATH: \(indexPath)")
                 
+                let newIndexPath = dataModel.updateDataSource(indexPath.row, inSection: indexPath.section)
+                
+                print("NEW INDEXPATH: \(newIndexPath)")
                 
                 if dataModel.dataModel.count < dataModel.addressLimit {
                     
@@ -113,31 +116,34 @@ class AddressViewController: UIViewController, UICollectionViewDataSource, UICol
                     
                     UIView.animateWithDuration(1.0, delay: 0.4, usingSpringWithDamping: 0.65, initialSpringVelocity: 0.0, options: .CurveEaseInOut, animations: { () -> Void in
                         
-                        self.addressCollectionView.insertItemsAtIndexPaths([indexPath])
+                        self.addressCollectionView.insertItemsAtIndexPaths([newIndexPath])
+                        print("* ADDED CELL AT INDEXPATH, GOING INTO CALLBACK #1: \(newIndexPath)")
                         
+                        }, completion: { _ in
+                            let cell = self.addressCollectionView.cellForItemAtIndexPath(newIndexPath) as! FullCollectionViewCell
+                            cell.indexPathRow = newIndexPath.row
+                            
+                    })
+                    
+                } else if dataModel.dataModel.count == dataModel.addressLimit {
+                    
+                    
+                    UIView.animateWithDuration(1.0, delay: 0.4, usingSpringWithDamping: 0.65, initialSpringVelocity: 0.0, options: .CurveEaseInOut, animations: { () -> Void in
+                        
+                        self.addressCollectionView.insertItemsAtIndexPaths([newIndexPath])
+                        print("** ADDED CELL AT INDEXPATH, GOING INTO CALLBACK #2: \(newIndexPath)")
                         
                         }, completion: { _ in
                             let cell = self.addressCollectionView.cellForItemAtIndexPath(indexPath) as! FullCollectionViewCell
                             cell.indexPathRow = indexPath.row
-                    
+                            
+                            
                     })
-                    
-        } else if dataModel.dataModel.count == dataModel.addressLimit {
-            UIView.animateWithDuration(1.0, delay: 0.4, usingSpringWithDamping: 0.65, initialSpringVelocity: 0.0, options: .CurveEaseInOut, animations: { () -> Void in
-                
-                self.addressCollectionView.insertItemsAtIndexPaths([indexPath])
-                
-                
-                }, completion: { _ in
-                    let cell = self.addressCollectionView.cellForItemAtIndexPath(indexPath) as! FullCollectionViewCell
-                    cell.indexPathRow = indexPath.row
-                    
-            })
-            addressCellAddingButton.hidden = true
+                    addressCellAddingButton.hidden = true
                 }
             }
         }
-   }
+    }
     
         
 //        delegate?.addressViewController!(self, didAddAddress: associatedAddress!, AtIndex: touchIndexPath!.row)
