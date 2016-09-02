@@ -14,7 +14,7 @@ import UIKit
     //Пока AnyObject а на самом деле должно быть объект типа Address
     optional func addressViewController(addressesVC: AddressViewController, didTapAddressMark address: AnyObject, AtIndex index: Int)
     optional func addressViewController(addressesVC: AddressViewController, didActivateAddress address: AnyObject, AtIndex index: Int)
-    optional func addressViewController(addressesVC: AddressViewController, didAddAddress address: AnyObject, AtIndex index: Int) -> AnyObject
+    optional func addressViewController(addressesVC: AddressViewController, didAddAddress address: AnyObject, AtIndex index: Int) -> AnyObject?
     optional func addressViewController(addressesVC: AddressViewController, didRemoveAddress address: AnyObject, AtIndex index: Int)
     optional func addressViewController(addressesVC: AddressViewController, didMoveAddress address: AnyObject, fromIndex: Int, toIndex: Int)
 }
@@ -22,12 +22,17 @@ import UIKit
 
 class AddressViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout  {
     
-//    override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
-//        addressCollectionView.setNeedsLayout()
+//override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
+//    super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
+//    
+//    addressCollectionView.setNeedsLayout()
 //    }
     
     @IBOutlet weak var addressCollectionView: UICollectionView!
-    @IBOutlet weak var addressCellAddingButton: UIButton!
+    //@IBOutlet weak var addressCellAddingButton: UIButton
+    @IBOutlet weak var verticalConstraint: NSLayoutConstraint!
+    
+    let addingCellsButton = UIButton(type: .ContactAdd)
     
     private var dataModel = DataModel() // источник данных для AddressViewController
     var delegate: AddressViewDelegate?
@@ -42,7 +47,8 @@ class AddressViewController: UIViewController, UICollectionViewDataSource, UICol
         }
     }
     
-    private var associatedAddress: AnyObject? // тут будет объект типа Address
+    private var associatedAddress: AnyObject = "Added Address" // тут будет объект типа Address
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,38 +56,65 @@ class AddressViewController: UIViewController, UICollectionViewDataSource, UICol
         addressCollectionView.delegate = self
         addressCollectionView.dataSource = self
         
+        let height = (addressCollectionView.superview?.bounds.height)! - 43
+        let width = addressCollectionView.superview?.bounds.width
+        addressCollectionView.contentSize = CGSizeMake(width!, height)
+        
+        verticalConstraint.constant = addressCollectionView.contentSize.height
+        
         let moveGestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(moveCollectionViewCells(_:)))
         addressCollectionView.addGestureRecognizer(moveGestureRecognizer)
         
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(searchAddress(_:)))
         tapGestureRecognizer.numberOfTapsRequired = 1
         addressCollectionView.addGestureRecognizer(tapGestureRecognizer)
+       
         
-       // addressCollectionView.translatesAutoresizingMaskIntoConstraints = true
+        let oneRect = CGRectMake(0, 88, 43, 43)
+        addingCellsButton.drawRect(oneRect)
+        
+        let superView = addressCollectionView.superview!
+        superView.addSubview(addingCellsButton)
+       configureAddingButton()
+        
         
     }
+    
+    func configureAddingButton() {
+        
+        addingCellsButton.backgroundColor = UIColor.clearColor()
+        addingCellsButton.autoresizesSubviews = true
+        
+        addingCellsButton.addTarget(self, action: #selector(addCellAtIndexPath(_:)), forControlEvents: .TouchUpInside)
+    }
+
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         
         let addressCell = collectionView.dequeueReusableCellWithReuseIdentifier("FullCollectionViewCell", forIndexPath: indexPath) as! FullCollectionViewCell
         
         addressCell.indexPathRow = indexPath.row
-        print("ADDRESS_VIEW_CONTROLLER SENDS AN INDEXPATHROW: \(indexPath.row)")
         addressCell.selected = false
+        // addingButtonPosition()
         
         return addressCell
         }
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
+        
         let cellWidth = collectionView.frame.size.width - 20
-        let cellHeight = CGFloat(50)
+        let cellHeight = CGFloat(43)
         let size = CGSizeMake(cellWidth, cellHeight)
+        
         return size
     }
     
     //MARK: Adding cells
     // добавляет ячейку для адреса с кнопки
-    @IBAction func addCellAtIndexPath (sender: UIButton) {
+    
+    func addCellAtIndexPath (sender: UIButton) {
+        
+        if sender == addingCellsButton {
         
         if addressCollectionView.visibleCells().count == 0 {
             
@@ -96,6 +129,8 @@ class AddressViewController: UIViewController, UICollectionViewDataSource, UICol
                 }, completion: { _ in
                     let cell = self.addressCollectionView.cellForItemAtIndexPath(initialIndexPath) as! FullCollectionViewCell
                     cell.indexPathRow = initialIndexPath.row
+                    
+                    self.delegate?.addressViewController!(self, didAddAddress: self.associatedAddress, AtIndex: initialIndexPath.row)
                     
             })
             
@@ -123,6 +158,9 @@ class AddressViewController: UIViewController, UICollectionViewDataSource, UICol
                             let cell = self.addressCollectionView.cellForItemAtIndexPath(newIndexPath) as! FullCollectionViewCell
                             cell.indexPathRow = newIndexPath.row
                             
+                            self.delegate?.addressViewController!(self, didAddAddress: self.associatedAddress, AtIndex: newIndexPath.row)
+                            
+                            // self.addingButtonPosition()
                     })
                     
                 } else if dataModel.dataModel.count == dataModel.addressLimit {
@@ -137,16 +175,17 @@ class AddressViewController: UIViewController, UICollectionViewDataSource, UICol
                             let cell = self.addressCollectionView.cellForItemAtIndexPath(indexPath) as! FullCollectionViewCell
                             cell.indexPathRow = indexPath.row
                             
+                            self.delegate?.addressViewController!(self, didAddAddress: self.associatedAddress, AtIndex: newIndexPath.row)
                             
                     })
-                    addressCellAddingButton.hidden = true
+                    // addressCellAddingButton.hidden = true
                 }
             }
         }
+        // FIXME: добавление ячеек не меняет размер CollectionView как надо 
+      //  addressCollectionView.setNeedsLayout() // не работает
+        }
     }
-    
-        
-//        delegate?.addressViewController!(self, didAddAddress: associatedAddress!, AtIndex: touchIndexPath!.row)
     
     
     //MARK: Deleting cells
@@ -166,11 +205,12 @@ class AddressViewController: UIViewController, UICollectionViewDataSource, UICol
                 self.addressCollectionView.deleteItemsAtIndexPaths([indexPath])
             }) { (finished: Bool) -> Void in
                 layout.disappearingItemsIndexPaths = nil
+                // self.addingButtonPosition()
             }
             
             
         }
-        addressCellAddingButton.hidden = false
+        // addressCellAddingButton.hidden = false
     }
     
     
@@ -289,6 +329,30 @@ class AddressViewController: UIViewController, UICollectionViewDataSource, UICol
             return dataModel.dataModel.count
     
     }
+    
+//    func addingButtonPosition() {
+//        switch addressCollectionView.visibleCells().count {
+//        case 0:
+//            print("VISIBLE CELLS - 0?: \(addressCollectionView.visibleCells().count)")
+//            let zeroRect = CGRectMake(0, 0, 43, 43)
+//            addingCellsButton.drawRect(zeroRect)
+//            addingCellsButton.setNeedsDisplay()
+//        case 1:
+//            print("VISIBLE CELLS - 1?: \(addressCollectionView.visibleCells().count)")
+//            let oneRect = CGRectMake(0, 44, 43, 43)
+//            addingCellsButton.drawRect(oneRect)
+//            addingCellsButton.setNeedsDisplay()
+//        case 2:
+//            print("VISIBLE CELLS - 2?: \(addressCollectionView.visibleCells().count)")
+//            let twoRect = CGRectMake(0, 88, 43, 43)
+//            addingCellsButton.drawRect(twoRect)
+//            addingCellsButton.setNeedsDisplay()
+//        default:
+//            print("VISIBLE CELLS DEFAULT: \(addressCollectionView.visibleCells().count)")
+//            break
+//        }
+//    }
+    
     
     func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWithGestureRecognizer otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         return true

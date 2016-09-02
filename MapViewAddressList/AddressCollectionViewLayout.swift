@@ -30,5 +30,7 @@ class AddressCollectionViewLayout: UICollectionViewFlowLayout {
         
         return attributes
     }
+    
+    
 
 }

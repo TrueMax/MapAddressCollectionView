@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import EasyPeasy
 
 enum ButtonImageLetter: String {
         case Null = "A"
@@ -46,11 +47,11 @@ class FullCollectionViewCell: UICollectionViewCell {
             // для выбранной ячейки картинка кнопки соответствует "БУКВА" = indexPath.row + activeaddress
             if selected {
                 
-                letterControlButton.selected = true
-                letterControlButton.setBackgroundImage(UIImage(named: activeImageName), forState: .Selected)
+                letterControlButton!.selected = true
+                letterControlButton!.setBackgroundImage(UIImage(named: activeImageName), forState: .Selected)
                 print("ACTIVE: \(activeImageName)")
-                addressTextLabel.text = "Address SELECTED"
-                activeAddressColorView.backgroundColor = FullCollectionViewCell.lineColor
+                addressTextLabel!.text = "Address SELECTED"
+                activeAddressColorView!.backgroundColor = FullCollectionViewCell.lineColor
                
                 // для неактивной ячейки картинка кнопки соответствует "БУКВА" = indexPath.row + inactiveaddress
             } else if !selected {
@@ -58,8 +59,8 @@ class FullCollectionViewCell: UICollectionViewCell {
                 letterControlButton.selected = false
                 letterControlButton.setBackgroundImage(UIImage(named: inactiveImageName), forState: .Normal)
                 print("INACTIVE: \(inactiveImageName)")
-                addressTextLabel.text = "Address not selected"
-                activeAddressColorView.backgroundColor = .clearColor()
+                addressTextLabel!.text = "Address not selected"
+                activeAddressColorView!.backgroundColor = .clearColor()
                 
             }
         }
@@ -69,7 +70,7 @@ class FullCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var addressTextLabel: UILabel!
     @IBOutlet weak var deleteButton: UIButton!
     @IBOutlet weak var activeAddressColorView: UIView!
-
+    
     
     private func setLetterImagesForLetterControlButton(indexPathRow: Int) -> String {
         print("IndexPathRow sent to cell: \(indexPathRow)")
@@ -93,4 +94,10 @@ class FullCollectionViewCell: UICollectionViewCell {
         }
         return "A"
     }
+    
+//    override func preferredLayoutAttributesFittingAttributes(layoutAttributes: UICollectionViewLayoutAttributes) -> UICollectionViewLayoutAttributes {
+//        super.preferredLayoutAttributesFittingAttributes(layoutAttributes)
+    
+        // тут надо определить attributes для ячейки, если нужно
+    //  }
 }
