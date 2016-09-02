@@ -80,6 +80,7 @@ class GoogleMapViewController: UIViewController, AddressViewDelegate, UICollecti
             Left(10).to(mapView!),
             Right(10).to(mapView!),
             Top(10).to(mapView!),
+            Width().like(view),
             Height(160).with(.LowPriority)
         ]
         
