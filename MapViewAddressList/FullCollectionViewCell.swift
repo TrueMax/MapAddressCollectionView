@@ -95,9 +95,5 @@ class FullCollectionViewCell: UICollectionViewCell {
         return "A"
     }
     
-//    override func preferredLayoutAttributesFittingAttributes(layoutAttributes: UICollectionViewLayoutAttributes) -> UICollectionViewLayoutAttributes {
-//        super.preferredLayoutAttributesFittingAttributes(layoutAttributes)
-    
-        // тут надо определить attributes для ячейки, если нужно
-    //  }
+
 }

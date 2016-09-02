@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" reuseIdentifier="FullCollectionViewCell" id="emE-pJ-Dx1" customClass="FullCollectionViewCell" customModule="MapViewAddressList" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="340" height="43"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="340" height="43"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lg0-ih-CfA">
+                        <rect key="frame" x="0.0" y="0.0" width="43" height="37"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="43" id="L8P-71-0T5"/>
+                        </constraints>
+                        <state key="normal" title="Button"/>
+                    </button>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="j5t-Zf-mdX">
+                        <rect key="frame" x="310" y="0.0" width="30" height="43"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="30" id="2Zw-V8-Xgn"/>
+                        </constraints>
+                        <state key="normal" title="Button"/>
+                    </button>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sJZ-8Q-OK6">
+                        <rect key="frame" x="43" y="0.0" width="267" height="43"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KWW-v0-vbZ">
+                        <rect key="frame" x="0.0" y="40" width="43" height="3"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="3" id="Ziy-oq-eUh"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            </view>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="j5t-Zf-mdX" secondAttribute="trailing" id="9OW-YP-IZb"/>
+                <constraint firstItem="j5t-Zf-mdX" firstAttribute="top" secondItem="emE-pJ-Dx1" secondAttribute="top" id="9kg-lS-txq"/>
+                <constraint firstAttribute="bottom" secondItem="sJZ-8Q-OK6" secondAttribute="bottom" id="Cll-b6-yq3"/>
+                <constraint firstItem="lg0-ih-CfA" firstAttribute="top" secondItem="emE-pJ-Dx1" secondAttribute="top" id="L3k-2F-GMI"/>
+                <constraint firstItem="KWW-v0-vbZ" firstAttribute="leading" secondItem="emE-pJ-Dx1" secondAttribute="leading" id="LEL-EX-aoG"/>
+                <constraint firstItem="sJZ-8Q-OK6" firstAttribute="top" secondItem="emE-pJ-Dx1" secondAttribute="top" id="Mqg-cl-yel"/>
+                <constraint firstItem="KWW-v0-vbZ" firstAttribute="top" secondItem="lg0-ih-CfA" secondAttribute="bottom" constant="3" id="OgH-Km-kkC"/>
+                <constraint firstItem="j5t-Zf-mdX" firstAttribute="leading" secondItem="sJZ-8Q-OK6" secondAttribute="trailing" id="l0i-yI-tI2"/>
+                <constraint firstItem="sJZ-8Q-OK6" firstAttribute="leading" secondItem="lg0-ih-CfA" secondAttribute="trailing" id="lfS-EG-bd0"/>
+                <constraint firstAttribute="bottom" secondItem="KWW-v0-vbZ" secondAttribute="bottom" id="qNm-lZ-fnS"/>
+                <constraint firstAttribute="bottom" secondItem="j5t-Zf-mdX" secondAttribute="bottom" id="r4X-ws-sNs"/>
+                <constraint firstItem="lg0-ih-CfA" firstAttribute="leading" secondItem="emE-pJ-Dx1" secondAttribute="leading" id="sov-AH-ZjX"/>
+                <constraint firstItem="KWW-v0-vbZ" firstAttribute="width" secondItem="lg0-ih-CfA" secondAttribute="width" id="xs2-Ta-oE0"/>
+            </constraints>
+            <size key="customSize" width="340" height="43"/>
+            <connections>
+                <outlet property="activeAddressColorView" destination="KWW-v0-vbZ" id="ySk-jc-Hsw"/>
+                <outlet property="addressTextLabel" destination="sJZ-8Q-OK6" id="9JS-o9-ww8"/>
+                <outlet property="deleteButton" destination="j5t-Zf-mdX" id="HHq-fh-xOx"/>
+                <outlet property="letterControlButton" destination="lg0-ih-CfA" id="PXE-Qf-6sj"/>
+            </connections>
+            <point key="canvasLocation" x="507" y="196.5"/>
+        </collectionViewCell>
+    </objects>
+</document>

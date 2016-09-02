@@ -8,14 +8,14 @@
 
 /* Begin PBXBuildFile section */
 		0AE205F793ACA37688F5369A /* Pods_MapViewAddressList.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F9817BDCC6F528D90BCEE6C /* Pods_MapViewAddressList.framework */; };
+		941B145D1D79A9190013E1EC /* AddressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 941B145C1D79A9190013E1EC /* AddressView.swift */; };
+		941B145F1D79CDC40013E1EC /* FullCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 941B145E1D79CDC40013E1EC /* FullCollectionViewCell.xib */; };
 		94268F1E1D6CB1840016ABC5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94268F1D1D6CB1840016ABC5 /* AppDelegate.swift */; };
 		94268F231D6CB1840016ABC5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 94268F211D6CB1840016ABC5 /* Main.storyboard */; };
 		94268F251D6CB1840016ABC5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 94268F241D6CB1840016ABC5 /* Assets.xcassets */; };
 		94268F281D6CB1840016ABC5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 94268F261D6CB1840016ABC5 /* LaunchScreen.storyboard */; };
 		94268F341D6D93EE0016ABC5 /* AddressCollectionViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94268F331D6D93EE0016ABC5 /* AddressCollectionViewLayout.swift */; };
 		94268F371D6D94DD0016ABC5 /* FullCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94268F351D6D94DD0016ABC5 /* FullCollectionViewCell.swift */; };
-		94268F3F1D6D9C8E0016ABC5 /* AddressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94268F3E1D6D9C8E0016ABC5 /* AddressViewController.swift */; };
-		94268F411D6DE8C70016ABC5 /* DataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94268F401D6DE8C70016ABC5 /* DataModel.swift */; };
 		94EDC9A71D7042FF005183E0 /* GoogleMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94EDC9A61D7042FF005183E0 /* GoogleMapViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -23,6 +23,8 @@
 		1F9817BDCC6F528D90BCEE6C /* Pods_MapViewAddressList.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MapViewAddressList.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		472856F17EF91851C2121208 /* Pods-MapViewAddressList.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MapViewAddressList.release.xcconfig"; path = "Pods/Target Support Files/Pods-MapViewAddressList/Pods-MapViewAddressList.release.xcconfig"; sourceTree = "<group>"; };
 		6DBC7282C32CB2BB2C58D3A9 /* Pods-MapViewAddressList.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MapViewAddressList.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MapViewAddressList/Pods-MapViewAddressList.debug.xcconfig"; sourceTree = "<group>"; };
+		941B145C1D79A9190013E1EC /* AddressView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddressView.swift; sourceTree = "<group>"; };
+		941B145E1D79CDC40013E1EC /* FullCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FullCollectionViewCell.xib; sourceTree = "<group>"; };
 		94268F1A1D6CB1840016ABC5 /* MapViewAddressList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MapViewAddressList.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		94268F1D1D6CB1840016ABC5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		94268F221D6CB1840016ABC5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -31,8 +33,6 @@
 		94268F291D6CB1840016ABC5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		94268F331D6D93EE0016ABC5 /* AddressCollectionViewLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddressCollectionViewLayout.swift; sourceTree = "<group>"; };
 		94268F351D6D94DD0016ABC5 /* FullCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FullCollectionViewCell.swift; sourceTree = "<group>"; };
-		94268F3E1D6D9C8E0016ABC5 /* AddressViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddressViewController.swift; sourceTree = "<group>"; };
-		94268F401D6DE8C70016ABC5 /* DataModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataModel.swift; sourceTree = "<group>"; };
 		94EDC9A61D7042FF005183E0 /* GoogleMapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoogleMapViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -93,6 +93,8 @@
 				94268F261D6CB1840016ABC5 /* LaunchScreen.storyboard */,
 				94268F291D6CB1840016ABC5 /* Info.plist */,
 				94EDC9A61D7042FF005183E0 /* GoogleMapViewController.swift */,
+				941B145C1D79A9190013E1EC /* AddressView.swift */,
+				941B145E1D79CDC40013E1EC /* FullCollectionViewCell.xib */,
 			);
 			path = MapViewAddressList;
 			sourceTree = "<group>";
@@ -102,8 +104,6 @@
 			children = (
 				94268F331D6D93EE0016ABC5 /* AddressCollectionViewLayout.swift */,
 				94268F351D6D94DD0016ABC5 /* FullCollectionViewCell.swift */,
-				94268F3E1D6D9C8E0016ABC5 /* AddressViewController.swift */,
-				94268F401D6DE8C70016ABC5 /* DataModel.swift */,
 			);
 			name = AddressCollectionView;
 			sourceTree = "<group>";
@@ -171,6 +171,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				94268F281D6CB1840016ABC5 /* LaunchScreen.storyboard in Resources */,
+				941B145F1D79CDC40013E1EC /* FullCollectionViewCell.xib in Resources */,
 				94268F251D6CB1840016ABC5 /* Assets.xcassets in Resources */,
 				94268F231D6CB1840016ABC5 /* Main.storyboard in Resources */,
 			);
@@ -231,12 +232,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				941B145D1D79A9190013E1EC /* AddressView.swift in Sources */,
 				94268F371D6D94DD0016ABC5 /* FullCollectionViewCell.swift in Sources */,
 				94268F341D6D93EE0016ABC5 /* AddressCollectionViewLayout.swift in Sources */,
 				94268F1E1D6CB1840016ABC5 /* AppDelegate.swift in Sources */,
-				94268F411D6DE8C70016ABC5 /* DataModel.swift in Sources */,
 				94EDC9A71D7042FF005183E0 /* GoogleMapViewController.swift in Sources */,
-				94268F3F1D6D9C8E0016ABC5 /* AddressViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
