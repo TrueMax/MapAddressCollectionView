@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clipsSubviews="YES" contentMode="scaleToFill" id="iN0-l3-epB" customClass="DraggableMenu" customModule="DraggableView" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hc8-Bg-hc0">
+                    <rect key="frame" x="280" y="3" width="40" height="5"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="40" id="Ihf-lD-fAx"/>
+                        <constraint firstAttribute="height" constant="5" id="WU2-h7-LTj"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                            <integer key="value" value="2"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </view>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zCV-jJ-V7f">
+                    <rect key="frame" x="272" y="56" width="56" height="21"/>
+                    <attributedString key="attributedText">
+                        <fragment content="МЕНЮ">
+                            <attributes>
+                                <color key="NSColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <font key="NSFont" size="18" name="Helvetica-BoldOblique"/>
+                                <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                            </attributes>
+                        </fragment>
+                    </attributedString>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qLK-Xg-IXF">
+                    <rect key="frame" x="30" y="96" width="540" height="20"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <attributedString key="attributedText">
+                        <fragment content="Первая строка ">
+                            <attributes>
+                                <color key="NSColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <font key="NSFont" size="17" name="HelveticaNeue"/>
+                                <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                            </attributes>
+                        </fragment>
+                    </attributedString>
+                    <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                            <integer key="value" value="3"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HKO-ta-Pmi">
+                    <rect key="frame" x="30" y="140" width="540" height="20"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="20" id="KNM-56-fVw"/>
+                    </constraints>
+                    <attributedString key="attributedText">
+                        <fragment content="ВТОРАЯ СТРОКА">
+                            <attributes>
+                                <color key="NSColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <font key="NSFont" size="18" name="Helvetica-Bold"/>
+                                <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                            </attributes>
+                        </fragment>
+                    </attributedString>
+                    <nil key="highlightedColor"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                            <integer key="value" value="3"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uwy-RO-qEW">
+                    <rect key="frame" x="30" y="182" width="540" height="20"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="20" id="eWj-E1-maN"/>
+                    </constraints>
+                    <attributedString key="attributedText">
+                        <fragment content="Третий пункт меню">
+                            <attributes>
+                                <color key="NSColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <font key="NSFont" size="16" name=".AppleSystemUIFont"/>
+                                <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                            </attributes>
+                        </fragment>
+                    </attributedString>
+                    <nil key="highlightedColor"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                            <integer key="value" value="3"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VGt-CT-OKx">
+                    <rect key="frame" x="30" y="224" width="540" height="20"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="20" id="Uze-MN-gw2"/>
+                    </constraints>
+                    <attributedString key="attributedText">
+                        <fragment content="Четвертый пункт меню">
+                            <attributes>
+                                <color key="NSColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <font key="NSFont" size="16" name="Helvetica-Bold"/>
+                                <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                            </attributes>
+                        </fragment>
+                    </attributedString>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="HKO-ta-Pmi" firstAttribute="height" secondItem="qLK-Xg-IXF" secondAttribute="height" id="1YP-QF-f6q"/>
+                <constraint firstAttribute="trailing" secondItem="qLK-Xg-IXF" secondAttribute="trailing" constant="30" id="28U-rS-hkV"/>
+                <constraint firstItem="zCV-jJ-V7f" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="42i-g1-gaI"/>
+                <constraint firstItem="VGt-CT-OKx" firstAttribute="height" secondItem="qLK-Xg-IXF" secondAttribute="height" id="7Jm-lb-4xd"/>
+                <constraint firstItem="VGt-CT-OKx" firstAttribute="width" secondItem="qLK-Xg-IXF" secondAttribute="width" id="7Xz-oZ-GEE"/>
+                <constraint firstItem="hc8-Bg-hc0" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="3" id="7hI-JF-bBs"/>
+                <constraint firstItem="HKO-ta-Pmi" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="8Jg-9F-e1M"/>
+                <constraint firstItem="HKO-ta-Pmi" firstAttribute="top" secondItem="qLK-Xg-IXF" secondAttribute="bottom" constant="24" id="8pE-bK-dtO"/>
+                <constraint firstItem="uwy-RO-qEW" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="Eow-Zo-XqG"/>
+                <constraint firstItem="VGt-CT-OKx" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="EqL-7X-HFy"/>
+                <constraint firstItem="HKO-ta-Pmi" firstAttribute="width" secondItem="qLK-Xg-IXF" secondAttribute="width" id="Fzj-aT-ekS"/>
+                <constraint firstItem="hc8-Bg-hc0" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="KEu-mb-fSN"/>
+                <constraint firstItem="qLK-Xg-IXF" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="30" id="QdJ-1q-w0J"/>
+                <constraint firstItem="uwy-RO-qEW" firstAttribute="top" secondItem="HKO-ta-Pmi" secondAttribute="bottom" constant="22" id="WTb-oo-usK"/>
+                <constraint firstItem="qLK-Xg-IXF" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="96" id="ebt-zk-VrI"/>
+                <constraint firstItem="uwy-RO-qEW" firstAttribute="width" secondItem="qLK-Xg-IXF" secondAttribute="width" id="h4u-MF-SaJ"/>
+                <constraint firstItem="uwy-RO-qEW" firstAttribute="height" secondItem="qLK-Xg-IXF" secondAttribute="height" id="iBq-BH-dGE"/>
+                <constraint firstItem="VGt-CT-OKx" firstAttribute="top" secondItem="uwy-RO-qEW" secondAttribute="bottom" constant="22" id="r3Q-De-7oH"/>
+                <constraint firstItem="zCV-jJ-V7f" firstAttribute="top" secondItem="hc8-Bg-hc0" secondAttribute="bottom" constant="48" id="tjs-fq-ifM"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+        </view>
+    </objects>
+</document>
