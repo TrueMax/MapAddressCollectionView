@@ -20,6 +20,7 @@ import UIKit
 
 @objc protocol AddressViewDataSource {
     
+    var dataSource: AddressViewDataSource { get }
     optional func addressLimit(addressView: AddressView) -> Int
     optional func addressProvidedByMap() -> AnyObject?
     optional func defaultAddressProvidedFromSource() -> AnyObject?
@@ -28,7 +29,10 @@ import UIKit
 
 class AddressView: UIView {
     
-    private var addresses: [AnyObject]?
+    @IBOutlet weak var addingButton: UIButton!
+    @IBOutlet weak var addressCollectionView: UICollectionView!
+    
+    private var addresses: [AnyObject]? = ["First Address"]
     
     private var _address: AnyObject?
     
@@ -56,74 +60,22 @@ class AddressView: UIView {
     var removedAddress: AnyObject?
     
     private var _addressLimit: Int = 1
+    
     var addressLimit: Int? {
         get {
             return _addressLimit
         }
         set {
-            _addressLimit = (dataSource?.addressLimit!(self))!
-            
+            dataSource?.addressLimit
         }
     }
     
     private var _dataSource: AddressViewDataSource?
     private var _delegate: AddressViewDelegate?
     
-    var dataSource: AnyObject? {
-        
-        get {
-            
-            return _dataSource
-        }
-        set {
-            
-            _dataSource = newValue as? AddressViewDataSource
-        }
-    }
+    var dataSource: AnyObject?
+    var delegate: AnyObject?
     
-    var delegate: AnyObject? {
-        
-        get {
-            
-            return _delegate
-        }
-        set {
-            
-            _delegate = newValue as? AddressViewDelegate        }
-    }
-
-    private lazy var addressCollectionView: UICollectionView = {
-        
-        
-        let layout = AddressCollectionViewLayout()
-        let collectionView = UICollectionView(frame: self.window!.frame, collectionViewLayout: layout)
-        collectionView.dataSource = self
-        collectionView.delegate = self
-        
-        let moveGestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(moveCollectionViewCells(_:)))
-        collectionView.addGestureRecognizer(moveGestureRecognizer)
-        
-        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didActivateAddressForSearch(_:)))
-        tapGestureRecognizer.numberOfTapsRequired = 1
-        collectionView.addGestureRecognizer(tapGestureRecognizer)
-        
-        return collectionView
-    }()
-    
-    // TODO: назначить кнопке метод добавления ячеек 
-    var addingButton = UIButton(type: .ContactAdd)
-    
-    override init(frame: CGRect){
-        super.init(frame: frame)
-        
-        self.addSubview(addressCollectionView)
-        
-        let buttonRect = CGRectMake(0, 45, 43, 43)
-        addingButton.drawRect(buttonRect)
-        self.addSubview(addingButton)
-        
-        addingButton.addTarget(self, action: #selector(addCellAtIndexPath(_:)), forControlEvents: .TouchUpInside)
-    }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -151,14 +103,22 @@ extension AddressView: UICollectionViewDelegate, UICollectionViewDataSource, UIC
     //MARK: CollectionViewDataSource
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         
-        let cellNib = UINib(nibName: "FullCollectionViewCell", bundle: NSBundle.mainBundle())
-        collectionView.registerNib(cellNib, forCellWithReuseIdentifier: "FullCollectionViewCell")
-        
         let addressCell = collectionView.dequeueReusableCellWithReuseIdentifier("FullCollectionViewCell", forIndexPath: indexPath) as! FullCollectionViewCell
         
         addressCell.indexPathRow = indexPath.row
         addressCell.selected = false
         // addingButtonPosition()
+        
+        let moveGestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(moveCollectionViewCells(_:)))
+        collectionView.addGestureRecognizer(moveGestureRecognizer)
+        
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didActivateAddressForSearch(_:)))
+        tapGestureRecognizer.numberOfTapsRequired = 1
+        collectionView.addGestureRecognizer(tapGestureRecognizer)
+
+        addressCell.letterControlButton.addTarget(self, action: #selector(addressFieldMakeActive(_:)), forControlEvents: .TouchUpInside)
+        
+        addressCell.deleteButton.addTarget(self, action: #selector(deleteCellAtIndexPath(_:)), forControlEvents: .TouchUpInside)
         
         return addressCell
     }
@@ -174,9 +134,9 @@ extension AddressView: UICollectionViewDelegate, UICollectionViewDataSource, UIC
             
             
             // FIXME: этот метод сообщает делегату, что ячейка передвинулась с одного индекса на другой
-            let movedAddress = addresses!.removeAtIndex(sourceIndexPath.row)
-            addresses!.insert(movedAddress, atIndex: destinationIndexPath.row)
-            delegate?.addressViewController!(self, didMoveAddress: movedAddress, fromIndex: sourceIndexPath.row, toIndex: destinationIndexPath.row)
+            let movedAddress = addresses?.removeAtIndex(sourceIndexPath.row)
+            addresses?.insert(movedAddress!, atIndex: destinationIndexPath.row)
+            delegate?.addressViewController!(self, didMoveAddress: movedAddress!, fromIndex: sourceIndexPath.row, toIndex: destinationIndexPath.row)
         }
         
     }
@@ -214,20 +174,15 @@ extension AddressView: UICollectionViewDelegate, UICollectionViewDataSource, UIC
             let cellFull = addressCollectionView.cellForItemAtIndexPath(indexPath) as! FullCollectionViewCell
             cellFull.indexPathRow = indexPath.row
             
-            activeAddress = addresses![indexPath.row]
+            activeAddress = addresses?[indexPath.row]
             delegate?.addressViewController!(self, didActivateAddress: activeAddress!, AtIndex: indexPath.row)
 
             
             switch indexPath.row {
-            case 0:
+            case 0, 1, 2:
                 deselectLetterButtons(cellFull)
                 cellFull.selected = true
-            case 1:
-                deselectLetterButtons(cellFull)
-                cellFull.selected = true
-            case 2:
-                deselectLetterButtons(cellFull)
-                cellFull.selected = true
+            
             default:
                 deselectLetterButtons(cellFull)
                 cellFull.selected = false
@@ -247,7 +202,7 @@ extension AddressView: UICollectionViewDelegate, UICollectionViewDataSource, UIC
     }
     
     // TODO: назначить методу кнопку ячейки letterControlButton
-    @IBAction func addressFieldMakeActive(sender: UIButton) {
+   func addressFieldMakeActive (sender: UIButton) {
         
         let touchPoint = sender.convertPoint(CGPointZero, toView: addressCollectionView)
         let touchIndexPath = addressCollectionView.indexPathForItemAtPoint(touchPoint)
@@ -263,7 +218,7 @@ extension AddressView: UICollectionViewDelegate, UICollectionViewDataSource, UIC
             default:
                 cell.selected = false
             }
-        activeAddress = addresses![indexPath.row]
+        activeAddress = addresses?[indexPath.row]
         delegate?.addressViewController!(self, didTapAddressMark: activeAddress!, AtIndex: indexPath.row)
         }
         
@@ -273,7 +228,7 @@ extension AddressView: UICollectionViewDelegate, UICollectionViewDataSource, UIC
     
     // логика добавления ячейки - просто добавляется ячейка по indexPath 
     
-    func addCellAtIndexPath (sender: UIButton) {
+    @IBAction func addCellAtIndexPath () {
         
         if addressCollectionView.visibleCells().count == 0 {
             
@@ -344,7 +299,8 @@ extension AddressView: UICollectionViewDelegate, UICollectionViewDataSource, UIC
     
     //MARK: CollectionView - delete cells
 
-    @IBAction func deleteCellAtIndexPath(sender: UIButton) {
+   func deleteCellAtIndexPath(sender: UIButton) {
+    
         let touchPoint: CGPoint = sender.convertPoint(CGPointZero, toView: addressCollectionView)
         let touchIndexPath = addressCollectionView.indexPathForItemAtPoint(touchPoint)
         print("TouchIndexPath: \(touchIndexPath)")

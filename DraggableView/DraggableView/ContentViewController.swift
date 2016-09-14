@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreData
 
 class ContentViewController: UIViewController {
 
@@ -26,6 +27,13 @@ class ContentViewController: UIViewController {
     
     @IBAction func closeSelf(sender: UIBarButtonItem) {
         dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    let moc = NSManagedObjectContext()
+    let moc2 = NSManagedObjectContext()
+    
+    func contextConfig() {
+        moc.parentContext = moc2
     }
 
     /*

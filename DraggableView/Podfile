@@ -7,7 +7,6 @@ target 'DraggableView' do
 
   # Pods for DraggableView
 
-pod 'Material'
 pod 'ARNTransitionAnimator'
 
 end

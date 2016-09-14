@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import Material
 
 //MARK: Enums
 enum OptionTabMode: Int {
@@ -341,6 +340,7 @@ class OptionTab: UIControl {
         
         //// General Declarations
         let context = UIGraphicsGetCurrentContext()
+        let RobotoFont = UIFont(name: "Helvetica", size: 15)
         
         //// Variable Declarations
         let iconHolderWidth: CGFloat = icon.size.width
@@ -363,24 +363,24 @@ class OptionTab: UIControl {
         dividerPath.fill()
         
         //// iconHolder Drawing
-        CGContextSaveGState(context)
-        CGContextTranslateCTM(context, bounds.minX + 0.50375 * bounds.width, bounds.minY + 0.30312 * bounds.height)
+        CGContextSaveGState(context!)
+        CGContextTranslateCTM(context!, bounds.minX + 0.50375 * bounds.width, bounds.minY + 0.30312 * bounds.height)
         
         let iconHolderRect = CGRect(x: -16.1 - iconHolderOffsetX,
                                     y: -12.0,
                                     width: (iconHolderWidth + 9.20187793427),
                                     height: (iconHolderHeight + 8.5))
         let iconHolderPath = UIBezierPath(rect: iconHolderRect)
-        CGContextSaveGState(context)
+        CGContextSaveGState(context!)
         iconHolderPath.addClip()
         let iconFrame = CGRect(x: floor(iconHolderRect.minX + 5 + 0.5),
                                y: floor(iconHolderRect.minY + 5 + 0.5),
                                width: icon.size.width,
                                height: icon.size.height)
         icon.drawInRect(iconFrame)
-        CGContextRestoreGState(context)
+        CGContextRestoreGState(context!)
         
-        CGContextRestoreGState(context)
+        CGContextRestoreGState(context!)
         
         //// title Drawing
         let titleRect = CGRect(x: bounds.minX + floor(bounds.width * 0.02917 + 0.5),
@@ -391,9 +391,9 @@ class OptionTab: UIControl {
         titleStyle.alignment = .Center
         
         let titleColorLoacl = _isActive ? titleColor : inactiveTitleColor ?? titleColor
-        let titleFontAttributes = [NSFontAttributeName: RobotoFont.regularWithSize(14),
+        let titleFontAttributes = [NSFontAttributeName: RobotoFont!.fontWithSize(13),
                                    NSForegroundColorAttributeName: titleColorLoacl,
-                                   NSParagraphStyleAttributeName: titleStyle]
+        NSParagraphStyleAttributeName: titleStyle] as [String: AnyObject]?
         
         NSString(string: title).drawInRect(titleRect, withAttributes: titleFontAttributes)
         
@@ -407,25 +407,26 @@ class OptionTab: UIControl {
         subtitleStyle.alignment = .Center
         
         let subtitleColorLoacl = _isActive ? subtitleColor : inactiveSubtitleColor ?? subtitleColor
-        let subtitleFontAttributes = [NSFontAttributeName: RobotoFont.regularWithSize(14),
+        let subtitleFontAttributes = [NSFontAttributeName: RobotoFont!.fontWithSize(14),
                                       NSForegroundColorAttributeName: subtitleColorLoacl,
                                       NSParagraphStyleAttributeName: subtitleStyle]
         
         let subtitleTextHeight: CGFloat = NSString(string: subtitle).boundingRectWithSize(CGSize(width: subtitleRect.width, height: CGFloat.infinity), options: NSStringDrawingOptions.UsesLineFragmentOrigin, attributes: subtitleFontAttributes, context: nil).size.height
-        CGContextSaveGState(context)
-        CGContextClipToRect(context, subtitleRect)
+        CGContextSaveGState(context!)
+        CGContextClipToRect(context!, subtitleRect)
         let subtitleFrame = CGRect(x: subtitleRect.minX,
                                    y: subtitleRect.minY + (subtitleRect.height - subtitleTextHeight) / 2,
                                    width: subtitleRect.width,
                                    height: subtitleTextHeight)
         NSString(string: subtitle).drawInRect(subtitleFrame, withAttributes: subtitleFontAttributes)
-        CGContextRestoreGState(context)
+        CGContextRestoreGState(context!)
     }
     
     private func drawOptionsBarTabWithBadge(bounds: CGRect, icon: UIImage) {
         
         //// General Declarations
         let context = UIGraphicsGetCurrentContext()
+        let RobotoFont = UIFont()
         
         //// Color Declarations
         let badgeTextColor = UIColor(red: 1.000, green: 1.000, blue: 1.000, alpha: 1.000)
@@ -451,24 +452,24 @@ class OptionTab: UIControl {
         dividerPath.fill()
         
         //// iconHolder Drawing
-        CGContextSaveGState(context)
-        CGContextTranslateCTM(context, bounds.minX + 0.50375 * bounds.width, bounds.minY + 0.30312 * bounds.height)
+        CGContextSaveGState(context!)
+        CGContextTranslateCTM(context!, bounds.minX + 0.50375 * bounds.width, bounds.minY + 0.30312 * bounds.height)
         
         let iconHolderRect = CGRect(x: -16.1 - iconHolderOffsetX,
                                     y: -12.0,
                                     width: (iconHolderWidth + 9.20187793427),
                                     height: (iconHolderHeight + 8.5))
         let iconHolderPath = UIBezierPath(rect: iconHolderRect)
-        CGContextSaveGState(context)
+        CGContextSaveGState(context!)
         iconHolderPath.addClip()
         let iconFrame = CGRect(x: floor(iconHolderRect.minX + 5 + 0.5),
                                y: floor(iconHolderRect.minY + 5 + 0.5),
                                width: icon.size.width,
                                height: icon.size.height)
         icon.drawInRect(iconFrame)
-        CGContextRestoreGState(context)
+        CGContextRestoreGState(context!)
         
-        CGContextRestoreGState(context)
+        CGContextRestoreGState(context!)
         
         //// title Drawing
         let titleRect = CGRect(x: bounds.minX + floor(bounds.width * 0.02917 + 0.5),
@@ -479,7 +480,7 @@ class OptionTab: UIControl {
         titleStyle.alignment = .Center
         
         let titleColorLoacl = _isActive ? titleColor : inactiveTitleColor ?? titleColor
-        let titleFontAttributes = [NSFontAttributeName: RobotoFont.regularWithSize(14),
+        let titleFontAttributes = [NSFontAttributeName: RobotoFont,
                                    NSForegroundColorAttributeName: titleColorLoacl,
                                    NSParagraphStyleAttributeName: titleStyle]
         
@@ -498,15 +499,15 @@ class OptionTab: UIControl {
             let badgeStyle = NSMutableParagraphStyle()
             badgeStyle.alignment = .Center
             
-            let badgeFontAttributes = [NSFontAttributeName: RobotoFont.regularWithSize(11),
+            let badgeFontAttributes = [NSFontAttributeName: RobotoFont.fontWithSize(11),
                                        NSForegroundColorAttributeName: badgeTextColor,
                                        NSParagraphStyleAttributeName: badgeStyle]
             
             let badgeTextHeight: CGFloat = NSString(string: _badgeValue).boundingRectWithSize(CGSize(width: badgeRect.width, height: CGFloat.infinity), options: NSStringDrawingOptions.UsesLineFragmentOrigin, attributes: badgeFontAttributes, context: nil).size.height
-            CGContextSaveGState(context)
-            CGContextClipToRect(context, badgeRect)
+            CGContextSaveGState(context!)
+            CGContextClipToRect(context!, badgeRect)
             NSString(string: _badgeValue).drawInRect(CGRect(x: badgeRect.minX, y: badgeRect.minY + (badgeRect.height - badgeTextHeight) / 2, width: badgeRect.width, height: badgeTextHeight), withAttributes: badgeFontAttributes)
-            CGContextRestoreGState(context)
+            CGContextRestoreGState(context!)
         }
     }
 }

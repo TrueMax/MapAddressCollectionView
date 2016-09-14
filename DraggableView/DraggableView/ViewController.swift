@@ -215,8 +215,10 @@ class ViewController: UIViewController, DraggableMenuDelegate {
 
 extension ViewController {
     
-    func cellDidSelected(atIndex: Int, withObject object: AnyObject) {
-        print("Delegate получает индекс и выбранный объект по индексу")
+    func cellDidSelected(with type: ListElement) -> ListElement {
+        print("Cell did selected")
+        let object = ListElement()
+        return object
     }
 }
 

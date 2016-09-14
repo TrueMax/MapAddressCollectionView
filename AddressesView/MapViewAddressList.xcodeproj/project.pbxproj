@@ -7,9 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0AE205F793ACA37688F5369A /* Pods_MapViewAddressList.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F9817BDCC6F528D90BCEE6C /* Pods_MapViewAddressList.framework */; };
+		0AE205F793ACA37688F5369A /* Pods_MapViewAddressList.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F9817BDCC6F528D90BCEE6C /* Pods_MapViewAddressList.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		941B145D1D79A9190013E1EC /* AddressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 941B145C1D79A9190013E1EC /* AddressView.swift */; };
-		941B145F1D79CDC40013E1EC /* FullCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 941B145E1D79CDC40013E1EC /* FullCollectionViewCell.xib */; };
 		94268F1E1D6CB1840016ABC5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94268F1D1D6CB1840016ABC5 /* AppDelegate.swift */; };
 		94268F231D6CB1840016ABC5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 94268F211D6CB1840016ABC5 /* Main.storyboard */; };
 		94268F251D6CB1840016ABC5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 94268F241D6CB1840016ABC5 /* Assets.xcassets */; };
@@ -24,7 +23,6 @@
 		472856F17EF91851C2121208 /* Pods-MapViewAddressList.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MapViewAddressList.release.xcconfig"; path = "Pods/Target Support Files/Pods-MapViewAddressList/Pods-MapViewAddressList.release.xcconfig"; sourceTree = "<group>"; };
 		6DBC7282C32CB2BB2C58D3A9 /* Pods-MapViewAddressList.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MapViewAddressList.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MapViewAddressList/Pods-MapViewAddressList.debug.xcconfig"; sourceTree = "<group>"; };
 		941B145C1D79A9190013E1EC /* AddressView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddressView.swift; sourceTree = "<group>"; };
-		941B145E1D79CDC40013E1EC /* FullCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FullCollectionViewCell.xib; sourceTree = "<group>"; };
 		94268F1A1D6CB1840016ABC5 /* MapViewAddressList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MapViewAddressList.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		94268F1D1D6CB1840016ABC5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		94268F221D6CB1840016ABC5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -94,7 +92,6 @@
 				94268F291D6CB1840016ABC5 /* Info.plist */,
 				94EDC9A61D7042FF005183E0 /* GoogleMapViewController.swift */,
 				941B145C1D79A9190013E1EC /* AddressView.swift */,
-				941B145E1D79CDC40013E1EC /* FullCollectionViewCell.xib */,
 			);
 			path = MapViewAddressList;
 			sourceTree = "<group>";
@@ -138,12 +135,13 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0730;
-				LastUpgradeCheck = 0730;
+				LastUpgradeCheck = 0800;
 				ORGANIZATIONNAME = Maxim;
 				TargetAttributes = {
 					94268F191D6CB1840016ABC5 = {
 						CreatedOnToolsVersion = 7.3.1;
 						DevelopmentTeam = V89XV7JPM2;
+						LastSwiftMigration = 0800;
 					};
 				};
 			};
@@ -171,7 +169,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				94268F281D6CB1840016ABC5 /* LaunchScreen.storyboard in Resources */,
-				941B145F1D79CDC40013E1EC /* FullCollectionViewCell.xib in Resources */,
 				94268F251D6CB1840016ABC5 /* Assets.xcassets in Resources */,
 				94268F231D6CB1840016ABC5 /* Main.storyboard in Resources */,
 			);
@@ -276,8 +273,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -322,8 +321,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -342,6 +343,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 			};
@@ -351,12 +353,14 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 6DBC7282C32CB2BB2C58D3A9 /* Pods-MapViewAddressList.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = MapViewAddressList/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = Maxim.MapViewAddressList;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 2.3;
 			};
 			name = Debug;
 		};
@@ -364,12 +368,14 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 472856F17EF91851C2121208 /* Pods-MapViewAddressList.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = MapViewAddressList/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = Maxim.MapViewAddressList;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 2.3;
 			};
 			name = Release;
 		};

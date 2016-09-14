@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import EasyPeasy
 
 enum ButtonImageLetter: String {
         case Null = "A"

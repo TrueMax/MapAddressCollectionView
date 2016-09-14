@@ -11,7 +11,7 @@
 
 import UIKit
 import MapKit
-import EasyPeasy
+
 
 class GoogleMapViewController: UIViewController, AddressViewDataSource, AddressViewDelegate {
     
@@ -22,7 +22,7 @@ class GoogleMapViewController: UIViewController, AddressViewDataSource, AddressV
     @IBOutlet weak var addressView: UIView!
     
     
-        private let mapAddress = "Одинцово" // сюда будет передаваться адрес после операции обратного геокодирования с карты, это функционал внутренний self
+    private let mapAddress = "Москва" // сюда будет передаваться адрес после операции обратного геокодирования с карты, это функционал внутренний self
     
     var _address: String {
         get {
@@ -46,32 +46,7 @@ class GoogleMapViewController: UIViewController, AddressViewDataSource, AddressV
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        easyPeasyConfigureContainerView()
-        
     }
-    
-    func easyPeasyConfigureMapView () {
-        mapView <- Edges()
-        
-    }
-    
-    func easyPeasyConfigureContainerView () {
-        addressView! <- [
-            Left(10).to(mapView!),
-            Right(10).to(mapView!),
-            Top(10).to(mapView!),
-            Width(340),
-            Height(160).with(.LowPriority)
-        ]
-    }
-    
-    
-    override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
-        super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
-        
-    }
-    
-    
     
     // MARK: Внутренняя кухня карты
     
@@ -103,6 +78,19 @@ class GoogleMapViewController: UIViewController, AddressViewDataSource, AddressV
 
 extension GoogleMapViewController {
     // MARK: методы DataSource для AddressView
+    
+    var dataSource: AddressViewDataSource {
+        return self
+    }
+    
+    func addressProvidedByMap() -> AnyObject? {
+        let newAddress = "Новый адрес"
+        return newAddress as AnyObject
+    }
+    
+    func addressLimit(addressView: AddressView) -> Int {
+        return 3
+    }
     
     // MARK: методы Delegate для AddressView
 }

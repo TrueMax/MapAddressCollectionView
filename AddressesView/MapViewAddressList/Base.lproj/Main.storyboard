@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="KEU-uK-8hF">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="KEU-uK-8hF">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
         <!--АДРЕСА-->
@@ -15,25 +16,124 @@
                         <viewControllerLayoutGuide type="bottom" id="Xbp-6K-Leg"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="VXe-QF-43B">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="33H-tM-eKe">
-                                <rect key="frame" x="0.0" y="20" width="600" height="580"/>
-                            </mapView>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="33H-tM-eKe"/>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zdB-7t-v1M" customClass="AddressView" customModule="MapViewAddressList">
-                                <rect key="frame" x="20" y="72" width="560" height="160"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="contactAdd" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jt4-1n-Miz">
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="43" id="GN9-jy-4GT"/>
+                                            <constraint firstAttribute="height" constant="43" id="ydN-DP-pfy"/>
+                                        </constraints>
+                                        <connections>
+                                            <action selector="addCellAtIndexPath" destination="zdB-7t-v1M" eventType="touchUpInside" id="US0-uJ-4jm"/>
+                                        </connections>
+                                    </button>
+                                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" showsHorizontalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="icT-Ln-J6X">
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="BVW-Ku-Nl3" customClass="AddressCollectionViewLayout" customModule="MapViewAddressList" customModuleProvider="target">
+                                            <size key="itemSize" width="342" height="50"/>
+                                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                        </collectionViewFlowLayout>
+                                        <cells>
+                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="FullCollectionViewCell" id="f06-PM-2um" customClass="FullCollectionViewCell" customModule="MapViewAddressList" customModuleProvider="target">
+                                                <rect key="frame" x="0.5" y="0.0" width="342" height="50"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                                    <rect key="frame" x="0.0" y="0.0" width="342" height="50"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <subviews>
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0PH-eE-Nss">
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" constant="43" id="KdG-lS-LCY"/>
+                                                            </constraints>
+                                                            <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                            <state key="normal">
+                                                                <color key="titleColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                            </state>
+                                                        </button>
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UXe-mR-SgZ">
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" constant="30" id="nU7-4u-ZAl"/>
+                                                            </constraints>
+                                                            <state key="normal" title="DEL">
+                                                                <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                            </state>
+                                                        </button>
+                                                        <label opaque="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kDP-bv-mWN">
+                                                            <attributedString key="attributedText">
+                                                                <fragment content="Адрес">
+                                                                    <attributes>
+                                                                        <font key="NSFont" metaFont="system" size="17"/>
+                                                                        <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                                    </attributes>
+                                                                </fragment>
+                                                            </attributedString>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lQ4-iU-ta7">
+                                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" constant="43" id="Szi-sm-a3u"/>
+                                                                <constraint firstAttribute="height" constant="3" id="ubU-QK-1U7"/>
+                                                            </constraints>
+                                                        </view>
+                                                    </subviews>
+                                                </view>
+                                                <constraints>
+                                                    <constraint firstItem="0PH-eE-Nss" firstAttribute="top" secondItem="f06-PM-2um" secondAttribute="top" id="1ym-n0-EkZ"/>
+                                                    <constraint firstAttribute="bottom" secondItem="kDP-bv-mWN" secondAttribute="bottom" id="5cu-lS-hVp"/>
+                                                    <constraint firstAttribute="trailing" secondItem="UXe-mR-SgZ" secondAttribute="trailing" id="6YU-iG-aEu"/>
+                                                    <constraint firstItem="lQ4-iU-ta7" firstAttribute="width" secondItem="0PH-eE-Nss" secondAttribute="width" id="9mb-0Y-dVl"/>
+                                                    <constraint firstItem="kDP-bv-mWN" firstAttribute="top" secondItem="f06-PM-2um" secondAttribute="top" id="Ocd-KN-mV6"/>
+                                                    <constraint firstItem="lQ4-iU-ta7" firstAttribute="leading" secondItem="f06-PM-2um" secondAttribute="leading" id="Q4J-X3-kCd"/>
+                                                    <constraint firstItem="0PH-eE-Nss" firstAttribute="leading" secondItem="f06-PM-2um" secondAttribute="leading" id="Se9-Ql-oyE"/>
+                                                    <constraint firstItem="UXe-mR-SgZ" firstAttribute="leading" secondItem="kDP-bv-mWN" secondAttribute="trailing" id="a6G-bS-G66"/>
+                                                    <constraint firstAttribute="bottom" secondItem="UXe-mR-SgZ" secondAttribute="bottom" id="eL2-9R-MKz"/>
+                                                    <constraint firstItem="kDP-bv-mWN" firstAttribute="leading" secondItem="0PH-eE-Nss" secondAttribute="trailing" id="fw7-lZ-p9Q"/>
+                                                    <constraint firstItem="lQ4-iU-ta7" firstAttribute="top" secondItem="0PH-eE-Nss" secondAttribute="bottom" id="pGa-pz-siR"/>
+                                                    <constraint firstItem="UXe-mR-SgZ" firstAttribute="top" secondItem="f06-PM-2um" secondAttribute="top" id="ver-Rr-8to"/>
+                                                    <constraint firstAttribute="bottom" secondItem="lQ4-iU-ta7" secondAttribute="bottom" id="yjo-60-MlD"/>
+                                                </constraints>
+                                                <connections>
+                                                    <outlet property="activeAddressColorView" destination="lQ4-iU-ta7" id="ZvP-DF-Qpf"/>
+                                                    <outlet property="addressTextLabel" destination="kDP-bv-mWN" id="QmN-rR-RJw"/>
+                                                    <outlet property="deleteButton" destination="UXe-mR-SgZ" id="Xtw-be-rSh"/>
+                                                    <outlet property="letterControlButton" destination="0PH-eE-Nss" id="x5B-g7-XB9"/>
+                                                </connections>
+                                            </collectionViewCell>
+                                        </cells>
+                                        <connections>
+                                            <outlet property="dataSource" destination="zdB-7t-v1M" id="cMG-VG-SZo"/>
+                                            <outlet property="delegate" destination="zdB-7t-v1M" id="NMf-lr-7XE"/>
+                                        </connections>
+                                    </collectionView>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
+                                    <constraint firstItem="icT-Ln-J6X" firstAttribute="top" secondItem="zdB-7t-v1M" secondAttribute="top" id="9Tp-H8-VwO"/>
+                                    <constraint firstItem="icT-Ln-J6X" firstAttribute="leading" secondItem="jt4-1n-Miz" secondAttribute="leading" id="IF5-9S-zPm"/>
+                                    <constraint firstAttribute="bottom" secondItem="jt4-1n-Miz" secondAttribute="bottom" id="OYi-fW-TH6"/>
                                     <constraint firstAttribute="height" constant="160" id="T7w-WX-8cD"/>
+                                    <constraint firstAttribute="trailing" secondItem="icT-Ln-J6X" secondAttribute="trailing" id="bfC-SQ-3s8"/>
+                                    <constraint firstItem="icT-Ln-J6X" firstAttribute="leading" secondItem="zdB-7t-v1M" secondAttribute="leading" id="jAs-0m-lEu"/>
+                                    <constraint firstAttribute="bottom" secondItem="icT-Ln-J6X" secondAttribute="bottom" constant="42" id="tWW-El-uuU"/>
                                 </constraints>
+                                <connections>
+                                    <outlet property="addingButton" destination="jt4-1n-Miz" id="nER-Yo-2ee"/>
+                                    <outlet property="addressCollectionView" destination="icT-Ln-J6X" id="nWK-oh-Bh5"/>
+                                </connections>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="zdB-7t-v1M" firstAttribute="top" secondItem="bZ9-gc-KS6" secondAttribute="bottom" constant="8" symbolic="YES" id="DTy-g6-UO6"/>
+                            <constraint firstItem="zdB-7t-v1M" firstAttribute="centerX" secondItem="33H-tM-eKe" secondAttribute="centerX" id="EWE-sn-cAU"/>
                             <constraint firstItem="Xbp-6K-Leg" firstAttribute="top" secondItem="33H-tM-eKe" secondAttribute="bottom" id="IbH-ij-4dA"/>
-                            <constraint firstItem="zdB-7t-v1M" firstAttribute="centerX" secondItem="33H-tM-eKe" secondAttribute="centerX" id="XeG-GF-LVC"/>
                             <constraint firstAttribute="trailing" secondItem="33H-tM-eKe" secondAttribute="trailing" id="h2F-W3-Ork"/>
                             <constraint firstItem="33H-tM-eKe" firstAttribute="top" secondItem="bZ9-gc-KS6" secondAttribute="bottom" constant="-44" id="l3h-Mq-ut2"/>
                             <constraint firstItem="33H-tM-eKe" firstAttribute="leading" secondItem="VXe-QF-43B" secondAttribute="leading" id="mFz-Yy-zHs"/>
@@ -48,7 +148,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="d0p-dg-Uav" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1174" y="304"/>
+            <point key="canvasLocation" x="1172" y="302.6986506746627"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Br2-fR-NM1">

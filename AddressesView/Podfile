@@ -7,6 +7,4 @@ target 'MapViewAddressList' do
 
   # Pods for MapViewAddressList
 
-pod 'EasyPeasy'
-
 end

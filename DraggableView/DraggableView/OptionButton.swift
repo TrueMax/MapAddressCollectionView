@@ -134,10 +134,10 @@ class OptionButton: UIControl {
                                    NSParagraphStyleAttributeName: titleStyle]
         
         let titleTextHeight: CGFloat = titleTextContent.boundingRectWithSize(CGSize(width: titleRect.width, height: CGFloat.infinity), options: NSStringDrawingOptions.UsesLineFragmentOrigin, attributes: titleFontAttributes, context: nil).size.height
-        CGContextSaveGState(context)
-        CGContextClipToRect(context, titleRect)
+        CGContextSaveGState(context!)
+        CGContextClipToRect(context!, titleRect)
         titleTextContent.drawInRect(CGRect(x: titleRect.minX, y: titleRect.minY + (titleRect.height - titleTextHeight) / 2, width: titleRect.width, height: titleTextHeight), withAttributes: titleFontAttributes)
-        CGContextRestoreGState(context)
+        CGContextRestoreGState(context!)
         
         
         //// Rectangle Drawing
@@ -145,10 +145,10 @@ class OptionButton: UIControl {
         if let _ = icon {
             
             let rectanglePath = UIBezierPath(rect: CGRect(x: 10, y: 8, width: 23, height: 23))
-            CGContextSaveGState(context)
+            CGContextSaveGState(context!)
             rectanglePath.addClip()
             icon!.drawInRect(CGRect(x: 10, y: 8, width: icon!.size.width, height: icon!.size.height))
-            CGContextRestoreGState(context)
+            CGContextRestoreGState(context!)
         }
     }
 }

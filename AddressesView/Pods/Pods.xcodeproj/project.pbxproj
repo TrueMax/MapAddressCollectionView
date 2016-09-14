@@ -7,111 +7,45 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		00F761F1990BC59F430B23C49557DA11 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC421EB663C5FD35E8EB5C672B9243D7 /* Item.swift */; };
-		0435D56129EDAA133AF45133F7E16E8C /* UILayoutGuide+Easy.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED134CA5B5A17F0E482A2B9EE5CDD2C7 /* UILayoutGuide+Easy.swift */; };
-		18413568F505C49BBB1FD1BE85DE4904 /* UIView+Easy.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1D411FB070B369A0E124185E2244F70 /* UIView+Easy.swift */; };
-		19CA1C7F7BF74454F9D709A5BF151227 /* Attribute+Operators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E3F91C2FCB3F5C14E04E7FDC5875710 /* Attribute+Operators.swift */; };
-		1FD1FA2AEA9FF3E5E3C8CF17FC2C067F /* ReferenceAttribute.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD2527FD246302E52A1B422F9F418FA6 /* ReferenceAttribute.swift */; };
-		3A667058813EF96C5D989A4292190546 /* Priority.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307C6AF657B137C84A16B9D8B9B09647 /* Priority.swift */; };
-		50316113BFB54E8BC2AA216DC96F8783 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A2A6FF208CEC4C2861F1E9D42D651453 /* Foundation.framework */; };
-		59FB05708D800CBB47B7649EBE8C8B1A /* PositionAttribute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D86A7B152B3D086D3A174D7FDA1DD2E /* PositionAttribute.swift */; };
-		5A4C01BDAB2867CFBE91BDBCCDF2747C /* EasyPeasy-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 3A47DA316F20F64205414980A3B1B100 /* EasyPeasy-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		62952AA3FBB5382E437C1C4B6FEA5450 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A2A6FF208CEC4C2861F1E9D42D651453 /* Foundation.framework */; };
-		6DD4B2BCAC26A384923860950D2A1CFD /* Pods-MapViewAddressList-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 725FD9293D29676E4866517E4CBF3D8B /* Pods-MapViewAddressList-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		7CFA5A486E6A75039A11E7B1057B4965 /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4F9AAFF51675EF031908FA497ECFE1B /* Constant.swift */; };
-		93E7445A61C3653CFA397505F439D676 /* Attribute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FDDF931AFF71705A71848DF89EE169E /* Attribute.swift */; };
-		9CD325C1DC36AFAC3F08F61D64DDEF2E /* DimensionAttribute.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE5A79AC620D47D8BEB9BF2F0C00BF1 /* DimensionAttribute.swift */; };
-		ADEA8218962DF7BE39A882C5986CC12A /* CompoundAttribute.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD2317682B6885BFCB8586F1A9594661 /* CompoundAttribute.swift */; };
-		AE5BE24C6EF136882FB5AB86D9FE4FCC /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E86668F20F252C440D1015B816BE59C5 /* UIKit.framework */; };
-		D4532DCFDA576C8D3F205DB5C25E3A2C /* Pods-MapViewAddressList-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 5435A3B05CF407D6A96763B4B6B29373 /* Pods-MapViewAddressList-dummy.m */; };
-		D6CF0C99DFC2B80BFE887EB05ED4E8A7 /* Attribute+Install.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4331FE7449BECD9CC38DC736A405CA12 /* Attribute+Install.swift */; };
-		E4454703595508CC778640CF63612AE9 /* NSLayoutConstraint+Internal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969BE8CC9134E230F24728EC3C7A3938 /* NSLayoutConstraint+Internal.swift */; };
-		FC21828086DAB254EA1D1385B8DFEED4 /* EasyPeasy-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 12F8B52BB0D55C3A82E7BEC799751740 /* EasyPeasy-dummy.m */; };
+		71439951139DE96709783500C0FC9BCD /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEC22C73C1608DFA5D5D78BDCB218219 /* Foundation.framework */; };
+		96117F0D8ACBA7CC733BA17372B4FB20 /* Pods-MapViewAddressList-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 5435A3B05CF407D6A96763B4B6B29373 /* Pods-MapViewAddressList-dummy.m */; };
+		D163886220A6305095E51CEFCE69AE66 /* Pods-MapViewAddressList-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 725FD9293D29676E4866517E4CBF3D8B /* Pods-MapViewAddressList-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		DE8EA7580113F10D28FCB216430E1990 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 028F952031693E832809D2FAD8F3131D;
-			remoteInfo = EasyPeasy;
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		000F08843D475EE951308CFE1A9FB3BA /* Pods-MapViewAddressList-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-MapViewAddressList-frameworks.sh"; sourceTree = "<group>"; };
-		0C18C0CA682008EB32F89D5171621921 /* EasyPeasy.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = EasyPeasy.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		12F8B52BB0D55C3A82E7BEC799751740 /* EasyPeasy-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "EasyPeasy-dummy.m"; sourceTree = "<group>"; };
-		19C6E2B11A05E2AB8615B243AC33D3FD /* EasyPeasy.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = EasyPeasy.modulemap; sourceTree = "<group>"; };
 		2DEF2732418851A03E1A626BC373018E /* Pods-MapViewAddressList-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-MapViewAddressList-acknowledgements.plist"; sourceTree = "<group>"; };
-		307C6AF657B137C84A16B9D8B9B09647 /* Priority.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Priority.swift; path = EasyPeasy/Priority.swift; sourceTree = "<group>"; };
 		363B143BC72A7D78843C8F40723A2728 /* Pods-MapViewAddressList-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-MapViewAddressList-resources.sh"; sourceTree = "<group>"; };
-		39F7763BC9FF9F06E60C9E7657A81624 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		3A47DA316F20F64205414980A3B1B100 /* EasyPeasy-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "EasyPeasy-umbrella.h"; sourceTree = "<group>"; };
-		4331FE7449BECD9CC38DC736A405CA12 /* Attribute+Install.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Attribute+Install.swift"; path = "EasyPeasy/Attribute+Install.swift"; sourceTree = "<group>"; };
-		4D86A7B152B3D086D3A174D7FDA1DD2E /* PositionAttribute.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PositionAttribute.swift; path = EasyPeasy/PositionAttribute.swift; sourceTree = "<group>"; };
 		50487C0AA8C747830D77A4434F16345B /* Pods-MapViewAddressList-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-MapViewAddressList-acknowledgements.markdown"; sourceTree = "<group>"; };
 		5435A3B05CF407D6A96763B4B6B29373 /* Pods-MapViewAddressList-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-MapViewAddressList-dummy.m"; sourceTree = "<group>"; };
-		5E3F91C2FCB3F5C14E04E7FDC5875710 /* Attribute+Operators.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Attribute+Operators.swift"; path = "EasyPeasy/Attribute+Operators.swift"; sourceTree = "<group>"; };
+		63B958E206600DEE63E0371472BA089C /* Pods_MapViewAddressList.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MapViewAddressList.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		67F6BA92F4A0E19B13D894C5E64AB3CF /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		725FD9293D29676E4866517E4CBF3D8B /* Pods-MapViewAddressList-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-MapViewAddressList-umbrella.h"; sourceTree = "<group>"; };
-		7FDDF931AFF71705A71848DF89EE169E /* Attribute.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Attribute.swift; path = EasyPeasy/Attribute.swift; sourceTree = "<group>"; };
 		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		969BE8CC9134E230F24728EC3C7A3938 /* NSLayoutConstraint+Internal.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "NSLayoutConstraint+Internal.swift"; path = "EasyPeasy/NSLayoutConstraint+Internal.swift"; sourceTree = "<group>"; };
 		982B3BB06388F15637BADAA5B8482908 /* Pods-MapViewAddressList.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "Pods-MapViewAddressList.modulemap"; sourceTree = "<group>"; };
-		9AB6DFDE94B1E97724F4A1D8CDF62649 /* EasyPeasy-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "EasyPeasy-prefix.pch"; sourceTree = "<group>"; };
-		A2A6FF208CEC4C2861F1E9D42D651453 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
-		AC421EB663C5FD35E8EB5C672B9243D7 /* Item.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Item.swift; path = EasyPeasy/Item.swift; sourceTree = "<group>"; };
-		C1D411FB070B369A0E124185E2244F70 /* UIView+Easy.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "UIView+Easy.swift"; path = "EasyPeasy/UIView+Easy.swift"; sourceTree = "<group>"; };
-		C4F9AAFF51675EF031908FA497ECFE1B /* Constant.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Constant.swift; path = EasyPeasy/Constant.swift; sourceTree = "<group>"; };
+		CEC22C73C1608DFA5D5D78BDCB218219 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		D1F55295CB05690AFC05BAD230F06EBF /* Pods-MapViewAddressList.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-MapViewAddressList.debug.xcconfig"; sourceTree = "<group>"; };
-		DD2527FD246302E52A1B422F9F418FA6 /* ReferenceAttribute.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ReferenceAttribute.swift; path = EasyPeasy/ReferenceAttribute.swift; sourceTree = "<group>"; };
-		E1E4FC3C1309E452227DC47870BEFFA3 /* EasyPeasy.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = EasyPeasy.xcconfig; sourceTree = "<group>"; };
-		E86668F20F252C440D1015B816BE59C5 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
-		EAE5A79AC620D47D8BEB9BF2F0C00BF1 /* DimensionAttribute.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = DimensionAttribute.swift; path = EasyPeasy/DimensionAttribute.swift; sourceTree = "<group>"; };
-		ECFCE5C1E9313EAFEE6ED582BB31B523 /* Pods_MapViewAddressList.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MapViewAddressList.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		ED134CA5B5A17F0E482A2B9EE5CDD2C7 /* UILayoutGuide+Easy.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "UILayoutGuide+Easy.swift"; path = "EasyPeasy/UILayoutGuide+Easy.swift"; sourceTree = "<group>"; };
 		F82BB1A91F66934580BC8209CA8F086D /* Pods-MapViewAddressList.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-MapViewAddressList.release.xcconfig"; sourceTree = "<group>"; };
-		FD2317682B6885BFCB8586F1A9594661 /* CompoundAttribute.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CompoundAttribute.swift; path = EasyPeasy/CompoundAttribute.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		0627CBD088FBAABADE5398EB5CAD00BC /* Frameworks */ = {
+		50E568A1912749C798F7652866DA10F3 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				50316113BFB54E8BC2AA216DC96F8783 /* Foundation.framework in Frameworks */,
-				AE5BE24C6EF136882FB5AB86D9FE4FCC /* UIKit.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		FEA89D87A52DE21B9440E0ED58BE305A /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				62952AA3FBB5382E437C1C4B6FEA5450 /* Foundation.framework in Frameworks */,
+				71439951139DE96709783500C0FC9BCD /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		433CD3331B6C3787F473C941B61FC68F /* Frameworks */ = {
+		3DCAB2B7CDE207B3958B6CB957FCC758 /* iOS */ = {
 			isa = PBXGroup;
 			children = (
-				F302CD3B306AF1ED96B9AF31FCDBC26C /* iOS */,
+				CEC22C73C1608DFA5D5D78BDCB218219 /* Foundation.framework */,
 			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		5907406F564F8943B620E72FF1BAEFB0 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				0C18C0CA682008EB32F89D5171621921 /* EasyPeasy.framework */,
-				ECFCE5C1E9313EAFEE6ED582BB31B523 /* Pods_MapViewAddressList.framework */,
-			);
-			name = Products;
+			name = iOS;
 			sourceTree = "<group>";
 		};
 		59BD78FB8EC9BADC1F44700027D3C780 /* Pods-MapViewAddressList */ = {
@@ -132,50 +66,30 @@
 			path = "Target Support Files/Pods-MapViewAddressList";
 			sourceTree = "<group>";
 		};
+		5EF87BF90963D6338C9B1ED00E93E447 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				63B958E206600DEE63E0371472BA089C /* Pods_MapViewAddressList.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		7DB346D0F39D3F0E887471402A8071AB = {
 			isa = PBXGroup;
 			children = (
 				93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */,
-				433CD3331B6C3787F473C941B61FC68F /* Frameworks */,
-				E903AD552D0149DA2723B14E352F4E10 /* Pods */,
-				5907406F564F8943B620E72FF1BAEFB0 /* Products */,
+				BC3CA7F9E30CC8F7E2DD044DD34432FC /* Frameworks */,
+				5EF87BF90963D6338C9B1ED00E93E447 /* Products */,
 				D277FD503647210F91CDF1184499A11B /* Targets Support Files */,
 			);
 			sourceTree = "<group>";
 		};
-		8866D7E932888FFB72C5F0B20DC709B6 /* EasyPeasy */ = {
+		BC3CA7F9E30CC8F7E2DD044DD34432FC /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				7FDDF931AFF71705A71848DF89EE169E /* Attribute.swift */,
-				4331FE7449BECD9CC38DC736A405CA12 /* Attribute+Install.swift */,
-				5E3F91C2FCB3F5C14E04E7FDC5875710 /* Attribute+Operators.swift */,
-				FD2317682B6885BFCB8586F1A9594661 /* CompoundAttribute.swift */,
-				C4F9AAFF51675EF031908FA497ECFE1B /* Constant.swift */,
-				EAE5A79AC620D47D8BEB9BF2F0C00BF1 /* DimensionAttribute.swift */,
-				AC421EB663C5FD35E8EB5C672B9243D7 /* Item.swift */,
-				969BE8CC9134E230F24728EC3C7A3938 /* NSLayoutConstraint+Internal.swift */,
-				4D86A7B152B3D086D3A174D7FDA1DD2E /* PositionAttribute.swift */,
-				307C6AF657B137C84A16B9D8B9B09647 /* Priority.swift */,
-				DD2527FD246302E52A1B422F9F418FA6 /* ReferenceAttribute.swift */,
-				ED134CA5B5A17F0E482A2B9EE5CDD2C7 /* UILayoutGuide+Easy.swift */,
-				C1D411FB070B369A0E124185E2244F70 /* UIView+Easy.swift */,
-				C5B553397CFAD0CE411DAF4274EB55A8 /* Support Files */,
+				3DCAB2B7CDE207B3958B6CB957FCC758 /* iOS */,
 			);
-			path = EasyPeasy;
-			sourceTree = "<group>";
-		};
-		C5B553397CFAD0CE411DAF4274EB55A8 /* Support Files */ = {
-			isa = PBXGroup;
-			children = (
-				19C6E2B11A05E2AB8615B243AC33D3FD /* EasyPeasy.modulemap */,
-				E1E4FC3C1309E452227DC47870BEFFA3 /* EasyPeasy.xcconfig */,
-				12F8B52BB0D55C3A82E7BEC799751740 /* EasyPeasy-dummy.m */,
-				9AB6DFDE94B1E97724F4A1D8CDF62649 /* EasyPeasy-prefix.pch */,
-				3A47DA316F20F64205414980A3B1B100 /* EasyPeasy-umbrella.h */,
-				39F7763BC9FF9F06E60C9E7657A81624 /* Info.plist */,
-			);
-			name = "Support Files";
-			path = "../Target Support Files/EasyPeasy";
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		D277FD503647210F91CDF1184499A11B /* Targets Support Files */ = {
@@ -186,78 +100,35 @@
 			name = "Targets Support Files";
 			sourceTree = "<group>";
 		};
-		E903AD552D0149DA2723B14E352F4E10 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				8866D7E932888FFB72C5F0B20DC709B6 /* EasyPeasy */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
-		F302CD3B306AF1ED96B9AF31FCDBC26C /* iOS */ = {
-			isa = PBXGroup;
-			children = (
-				A2A6FF208CEC4C2861F1E9D42D651453 /* Foundation.framework */,
-				E86668F20F252C440D1015B816BE59C5 /* UIKit.framework */,
-			);
-			name = iOS;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
-		84374DC3281CDAA982F19DCAF03B7A9D /* Headers */ = {
+		267F46FBC1D432FA5C1F1C53CBE41CBA /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5A4C01BDAB2867CFBE91BDBCCDF2747C /* EasyPeasy-umbrella.h in Headers */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		FC7A611FE6268A2B093F13DB192006EF /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				6DD4B2BCAC26A384923860950D2A1CFD /* Pods-MapViewAddressList-umbrella.h in Headers */,
+				D163886220A6305095E51CEFCE69AE66 /* Pods-MapViewAddressList-umbrella.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		028F952031693E832809D2FAD8F3131D /* EasyPeasy */ = {
+		0463DFADD356D1A259589E88A668725A /* Pods-MapViewAddressList */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 46DFDABAD0B07F9182DAF94982883A90 /* Build configuration list for PBXNativeTarget "EasyPeasy" */;
+			buildConfigurationList = 3EE780B5D5518452D3AA2B08485D7A3F /* Build configuration list for PBXNativeTarget "Pods-MapViewAddressList" */;
 			buildPhases = (
-				D8FDCF8F10B4FD111A3F0A3EF27C02DB /* Sources */,
-				0627CBD088FBAABADE5398EB5CAD00BC /* Frameworks */,
-				84374DC3281CDAA982F19DCAF03B7A9D /* Headers */,
+				57A92298D8C9819560B41717BD3FD344 /* Sources */,
+				50E568A1912749C798F7652866DA10F3 /* Frameworks */,
+				267F46FBC1D432FA5C1F1C53CBE41CBA /* Headers */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-			);
-			name = EasyPeasy;
-			productName = EasyPeasy;
-			productReference = 0C18C0CA682008EB32F89D5171621921 /* EasyPeasy.framework */;
-			productType = "com.apple.product-type.framework";
-		};
-		F3A9F2EC558D3FC8181F4544375AEAF7 /* Pods-MapViewAddressList */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 9A3C0698C9C9AF370406660BA0AD6680 /* Build configuration list for PBXNativeTarget "Pods-MapViewAddressList" */;
-			buildPhases = (
-				83BA7C3EA9A8478881D42F5A166AC2C3 /* Sources */,
-				FEA89D87A52DE21B9440E0ED58BE305A /* Frameworks */,
-				FC7A611FE6268A2B093F13DB192006EF /* Headers */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				1B95F861802D77A155F37766228F64DC /* PBXTargetDependency */,
 			);
 			name = "Pods-MapViewAddressList";
 			productName = "Pods-MapViewAddressList";
-			productReference = ECFCE5C1E9313EAFEE6ED582BB31B523 /* Pods_MapViewAddressList.framework */;
+			productReference = 63B958E206600DEE63E0371472BA089C /* Pods_MapViewAddressList.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 /* End PBXNativeTarget section */
@@ -277,58 +148,60 @@
 				en,
 			);
 			mainGroup = 7DB346D0F39D3F0E887471402A8071AB;
-			productRefGroup = 5907406F564F8943B620E72FF1BAEFB0 /* Products */;
+			productRefGroup = 5EF87BF90963D6338C9B1ED00E93E447 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				028F952031693E832809D2FAD8F3131D /* EasyPeasy */,
-				F3A9F2EC558D3FC8181F4544375AEAF7 /* Pods-MapViewAddressList */,
+				0463DFADD356D1A259589E88A668725A /* Pods-MapViewAddressList */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXSourcesBuildPhase section */
-		83BA7C3EA9A8478881D42F5A166AC2C3 /* Sources */ = {
+		57A92298D8C9819560B41717BD3FD344 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D4532DCFDA576C8D3F205DB5C25E3A2C /* Pods-MapViewAddressList-dummy.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		D8FDCF8F10B4FD111A3F0A3EF27C02DB /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				D6CF0C99DFC2B80BFE887EB05ED4E8A7 /* Attribute+Install.swift in Sources */,
-				19CA1C7F7BF74454F9D709A5BF151227 /* Attribute+Operators.swift in Sources */,
-				93E7445A61C3653CFA397505F439D676 /* Attribute.swift in Sources */,
-				ADEA8218962DF7BE39A882C5986CC12A /* CompoundAttribute.swift in Sources */,
-				7CFA5A486E6A75039A11E7B1057B4965 /* Constant.swift in Sources */,
-				9CD325C1DC36AFAC3F08F61D64DDEF2E /* DimensionAttribute.swift in Sources */,
-				FC21828086DAB254EA1D1385B8DFEED4 /* EasyPeasy-dummy.m in Sources */,
-				00F761F1990BC59F430B23C49557DA11 /* Item.swift in Sources */,
-				E4454703595508CC778640CF63612AE9 /* NSLayoutConstraint+Internal.swift in Sources */,
-				59FB05708D800CBB47B7649EBE8C8B1A /* PositionAttribute.swift in Sources */,
-				3A667058813EF96C5D989A4292190546 /* Priority.swift in Sources */,
-				1FD1FA2AEA9FF3E5E3C8CF17FC2C067F /* ReferenceAttribute.swift in Sources */,
-				0435D56129EDAA133AF45133F7E16E8C /* UILayoutGuide+Easy.swift in Sources */,
-				18413568F505C49BBB1FD1BE85DE4904 /* UIView+Easy.swift in Sources */,
+				96117F0D8ACBA7CC733BA17372B4FB20 /* Pods-MapViewAddressList-dummy.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
-/* Begin PBXTargetDependency section */
-		1B95F861802D77A155F37766228F64DC /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = EasyPeasy;
-			target = 028F952031693E832809D2FAD8F3131D /* EasyPeasy */;
-			targetProxy = DE8EA7580113F10D28FCB216430E1990 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
-
 /* Begin XCBuildConfiguration section */
+		0478FF63B43752F04A064264B86AD95D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = D1F55295CB05690AFC05BAD230F06EBF /* Pods-MapViewAddressList.debug.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = "Target Support Files/Pods-MapViewAddressList/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-MapViewAddressList/Pods-MapViewAddressList.modulemap";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = Pods_MapViewAddressList;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
 		3FA451D268613890FA8A5A03801E11D5 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -366,40 +239,6 @@
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
-		};
-		41CF71D174EBCC313A7D602ED4B27984 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = D1F55295CB05690AFC05BAD230F06EBF /* Pods-MapViewAddressList.debug.xcconfig */;
-			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 1;
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_NO_COMMON_BLOCKS = YES;
-				INFOPLIST_FILE = "Target Support Files/Pods-MapViewAddressList/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MACH_O_TYPE = staticlib;
-				MODULEMAP_FILE = "Target Support Files/Pods-MapViewAddressList/Pods-MapViewAddressList.modulemap";
-				MTL_ENABLE_DEBUG_INFO = YES;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
-				PRODUCT_NAME = Pods_MapViewAddressList;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
 		};
 		5E62115DE8C09934BF8D2FE5D15FED1E /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -443,7 +282,7 @@
 			};
 			name = Debug;
 		};
-		B66BA7FAA55AA157D6A439B95BF2EB1D /* Release */ = {
+		B74C0A70898A411DBC3CFC5EA06377DE /* Release */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = F82BB1A91F66934580BC8209CA8F086D /* Pods-MapViewAddressList.release.xcconfig */;
 			buildSettings = {
@@ -476,65 +315,6 @@
 			};
 			name = Release;
 		};
-		CB3B86E39B894CD84FC1A26D1B873219 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = E1E4FC3C1309E452227DC47870BEFFA3 /* EasyPeasy.xcconfig */;
-			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 1;
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/EasyPeasy/EasyPeasy-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/EasyPeasy/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/EasyPeasy/EasyPeasy.modulemap";
-				MTL_ENABLE_DEBUG_INFO = YES;
-				PRODUCT_NAME = EasyPeasy;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
-		};
-		FA203981515061F10CB3B6C34C8FEC0D /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = E1E4FC3C1309E452227DC47870BEFFA3 /* EasyPeasy.xcconfig */;
-			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 1;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/EasyPeasy/EasyPeasy-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/EasyPeasy/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/EasyPeasy/EasyPeasy.modulemap";
-				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_NAME = EasyPeasy;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -547,20 +327,11 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		46DFDABAD0B07F9182DAF94982883A90 /* Build configuration list for PBXNativeTarget "EasyPeasy" */ = {
+		3EE780B5D5518452D3AA2B08485D7A3F /* Build configuration list for PBXNativeTarget "Pods-MapViewAddressList" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				CB3B86E39B894CD84FC1A26D1B873219 /* Debug */,
-				FA203981515061F10CB3B6C34C8FEC0D /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		9A3C0698C9C9AF370406660BA0AD6680 /* Build configuration list for PBXNativeTarget "Pods-MapViewAddressList" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				41CF71D174EBCC313A7D602ED4B27984 /* Debug */,
-				B66BA7FAA55AA157D6A439B95BF2EB1D /* Release */,
+				0478FF63B43752F04A064264B86AD95D /* Debug */,
+				B74C0A70898A411DBC3CFC5EA06377DE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

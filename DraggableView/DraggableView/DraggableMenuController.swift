@@ -8,12 +8,16 @@
 
 import UIKit
 
+class ListElement: AnyObject {
+    let first = "FIRST"
+}
+
 protocol DraggableMenuDataSource {
     func dataSourceForDraggableMenu() -> [AnyObject]
 }
 
 protocol DraggableMenuDelegate {
-    func cellDidSelected(atIndex: Int, withObject object: AnyObject)
+    func cellDidSelected(with type: ListElement) -> ListElement
 }
 
 class DraggableMenuController: UIViewController {
